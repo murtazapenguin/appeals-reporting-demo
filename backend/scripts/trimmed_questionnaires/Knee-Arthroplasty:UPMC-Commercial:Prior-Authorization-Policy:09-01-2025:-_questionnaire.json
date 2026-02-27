@@ -1,0 +1,254 @@
+{
+  "source_file": "Knee-Arthroplasty:Commercial:Prior-Authorization-Policy:09-01-2025:-.pdf",
+  "num_pages": 16,
+  "guideline_name": "Knee Arthroplasty",
+  "line_of_business": [
+    "Commercial PA",
+    "DSNP",
+    "CDHP",
+    "CMS-MA HMO",
+    "CMS-MA PPO",
+    "GOVT FEHBP",
+    "PSHBP",
+    "DHS-MA Health Choices/PH",
+    "CHIP",
+    "COMMUNITY HEALTHCHOICES CHC/MLTSS"
+  ],
+  "cpt_codes": [
+    "27438",
+    "27446",
+    "27445",
+    "27447",
+    "27486",
+    "27487"
+  ],
+  "hcpcs_codes": [],
+  "icd_10_codes": [],
+  "guidelines": {
+    "criteria": "Knee Arthroplasty Medical Management (CPT: 27438, 27446, 27445, 27447, 27486, 27487)",
+    "question": "1",
+    "evaluatable": false,
+    "context": [
+      "This policy applies to Total Joint Replacement, Unicompartmental Replacement, and Patella-Femoral Arthroplasty.",
+      "Knee Arthroplasty is a surgery that is performed primarily for severe arthritis (osteoarthritis, inflammatory arthritides including rheumatoid arthritis, avascular necrosis and post-traumatic arthritis) of the knee joint."
+    ],
+    "logic": "AND",
+    "subcriteria": [
+      {
+        "criteria": "Specific Indications: Knee Arthroplasty",
+        "question": "1.1",
+        "evaluatable": false,
+        "context": [
+          "Knee arthroplasty is medically necessary when all of the following indications (1-4) are met."
+        ],
+        "logic": "AND",
+        "subcriteria": [
+          {
+            "criteria": "Condition",
+            "question": "1.1.1",
+            "evaluatable": false,
+            "context": [
+              "The patient must have one of the following conditions."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "Near end-stage to end-stage osteoarthritis (primary or secondary) (e.g., near or complete loss of joint space, bone-on-bone with or without varus, or valgus malalignment)",
+                "question": "1.1.1.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have near end-stage to end-stage osteoarthritis (primary or secondary)?"
+              },
+              {
+                "criteria": "Inflammatory arthritidies including rheumatoid arthritis",
+                "question": "1.1.1.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have inflammatory arthritidies including rheumatoid arthritis?"
+              },
+              {
+                "criteria": "Osteonecrosis/ avascular necrosis (tibial plateau/femoral condyle) or post-traumatic arthritis",
+                "question": "1.1.1.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have osteonecrosis/avascular necrosis or post-traumatic arthritis?"
+              }
+            ]
+          },
+          {
+            "criteria": "Persistent knee pain",
+            "question": "1.1.2",
+            "evaluatable": false,
+            "context": [
+              "Persistent knee pain with all of the following:"
+            ],
+            "logic": "AND",
+            "subcriteria": [
+              {
+                "criteria": "Significant pain that interferes with activities of daily living",
+                "question": "1.1.2.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have significant pain that interferes with activities of daily living (ADLs)?"
+              },
+              {
+                "criteria": "Significant pain that increases with weight bearing and/or standing",
+                "question": "1.1.2.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have significant pain that increases with weight bearing and/or standing?"
+              },
+              {
+                "criteria": "Significant pain with active or passive range of motion",
+                "question": "1.1.2.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have significant pain with active or passive range of motion?"
+              }
+            ]
+          },
+          {
+            "criteria": "Conservative Management Requirement or Exclusion",
+            "question": "1.1.3",
+            "evaluatable": false,
+            "context": [
+              "Symptoms continue after conservative management OR the patient meets an exclusion to the requirement.",
+              "Conservative Management is defined as: A trial of oral analgesics (not to include opioids) and/or anti-inflammatory medications, if not contraindicated, and either one of the following has occurred: A trial of ambulatory support (e.g., use of a cane, walker, etc.) and patient education on joint protection and self-management with assistive devices; or Participation in a home-directed exercise program (preferred) or physical therapy; or If patient is unable to participate in the above program, or there are reasons for not delaying, documentation must be provided in the medical record."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "Symptoms continue after conservative management",
+                "question": "1.1.3.1",
+                "evaluatable": true,
+                "context": [
+                  "See definition of Conservative Management in parent context."
+                ],
+                "subcriteria": [],
+                "query": "Do symptoms continue after a trial of conservative management (oral analgesics/anti-inflammatories AND either ambulatory support/education OR home exercise/PT)?"
+              },
+              {
+                "criteria": "Exclusion to Conservative Management: Knee fracture with severe underlying osteoarthritis",
+                "question": "1.1.3.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have a knee fracture with severe underlying osteoarthritis?"
+              },
+              {
+                "criteria": "Exclusion to Conservative Management: Rapid progression of symptoms with severe disability and progressive radiologic deterioration",
+                "question": "1.1.3.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is there rapid progression of symptoms with severe disability and progressive radiologic deterioration?"
+              },
+              {
+                "criteria": "Exclusion to Conservative Management: Bone tumor involving the knee",
+                "question": "1.1.3.4",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have a bone tumor involving the knee?"
+              },
+              {
+                "criteria": "Exclusion to Conservative Management: Complete loss of joint space or bone-on-bone contact",
+                "question": "1.1.3.5",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is there complete loss of joint space or bone-on-bone contact?"
+              },
+              {
+                "criteria": "Exclusion to Conservative Management: Other reasons documented in the note",
+                "question": "1.1.3.6",
+                "evaluatable": true,
+                "context": [
+                  "Including but not limited to, bilateral or multiple joint disease."
+                ],
+                "subcriteria": [],
+                "query": "Are there other documented reasons to exclude conservative management (e.g., bilateral or multiple joint disease)?"
+              }
+            ]
+          },
+          {
+            "criteria": "Radiological evidence",
+            "question": "1.1.4",
+            "evaluatable": false,
+            "context": [
+              "Radiological evidence of end stage joint disease (bone-on-bone articulation) in one to three compartments, or near-end stage joint disease with joint space narrowing in one to three compartments with at least two of the following."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "End stage joint disease (bone-on-bone articulation) in one to three compartments",
+                "question": "1.1.4.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is there radiological evidence of end stage joint disease (bone-on-bone articulation) in one to three compartments?"
+              },
+              {
+                "criteria": "Near-end stage joint disease with joint space narrowing in one to three compartments with at least two additional findings",
+                "question": "1.1.4.2",
+                "evaluatable": false,
+                "context": [],
+                "logic": "AND",
+                "subcriteria": [
+                  {
+                    "criteria": "Near-end stage joint disease with joint space narrowing in one to three compartments",
+                    "question": "1.1.4.2.1",
+                    "evaluatable": true,
+                    "context": [],
+                    "subcriteria": [],
+                    "query": "Is there radiological evidence of near-end stage joint disease with joint space narrowing in one to three compartments?"
+                  },
+                  {
+                    "criteria": "At least two of the following findings",
+                    "question": "1.1.4.2.2",
+                    "evaluatable": false,
+                    "context": [],
+                    "logic": "AT_LEAST_N",
+                    "required_count": 2,
+                    "subcriteria": [
+                      {
+                        "criteria": "Malalignment",
+                        "question": "1.1.4.2.2.1",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Is there malalignment?"
+                      },
+                      {
+                        "criteria": "Joint subluxation",
+                        "question": "1.1.4.2.2.2",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Is there joint subluxation?"
+                      },
+                      {
+                        "criteria": "Subchondral cyst(s)",
+                        "question": "1.1.4.2.2.3",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Are there subchondral cyst(s)?"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

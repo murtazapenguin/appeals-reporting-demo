@@ -1,0 +1,24 @@
+# Gitleaks configuration
+# https://github.com/gitleaks/gitleaks
+
+title = "Claim Appeals V2 Gitleaks Config"
+
+[allowlist]
+description = "Allowlisted files and patterns"
+
+# Allow example/template files that contain placeholder tokens
+paths = [
+  '''\.env\.example$''',
+  '''API_REQUIREMENTS\.md$''',
+  '''api-contract\.md$''',
+  '''\.claude/skills/.*\.md$''',
+]
+
+# Allow common example/placeholder patterns
+regexes = [
+  '''your-.*-key''',
+  '''your-.*-secret''',
+  '''example\.com''',
+  '''placeholder''',
+  '''EXAMPLE''',
+]

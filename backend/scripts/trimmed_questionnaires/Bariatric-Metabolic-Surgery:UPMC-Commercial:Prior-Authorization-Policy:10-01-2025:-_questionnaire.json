@@ -1,0 +1,351 @@
+{
+  "source_file": "Bariatric-Metabolic-Surgery:Commercial:Prior-Authorization-Policy:10-01-2025:-.pdf",
+  "num_pages": 47,
+  "guideline_name": "Bariatric Metabolic Surgery",
+  "line_of_business": [
+    "Commercial",
+    "CMS-MA PA",
+    "CMS-MA HMO",
+    "CMS-MA PPO",
+    "CMS-MA DSNP",
+    "FEHBP",
+    "PSHBP",
+    "DHS-MA Health Choices/PH",
+    "CHIP",
+    "Community HealthChoices CHC/MLTSS"
+  ],
+  "cpt_codes": [
+    "0813T",
+    "43229",
+    "43270",
+    "43290",
+    "43291",
+    "43644",
+    "43645",
+    "43659",
+    "43770",
+    "43771",
+    "43773",
+    "43775",
+    "43842",
+    "43843",
+    "43845",
+    "43846",
+    "43847",
+    "43848",
+    "43886",
+    "43888",
+    "43999",
+    "44238",
+    "44799",
+    "64999"
+  ],
+  "hcpcs_codes": [
+    "C9784",
+    "C9785"
+  ],
+  "icd_10_codes": [],
+  "guidelines": {
+    "criteria": "Bariatric/Metabolic Surgery Medical Management",
+    "question": "1",
+    "evaluatable": false,
+    "context": [
+      "This policy applies to the Health Plan's lines of business including Commercial, CHIP, Medicare, and Medical Assistance.",
+      "Bariatric Surgery is surgery on the stomach and/or intestines to help a person with severe or extreme obesity lose weight.",
+      "Metabolic Surgery refers to procedures performed with the primary goal of treating metabolic disorders (e.g., Type 2 Diabetes)."
+    ],
+    "logic": "AND",
+    "subcriteria": [
+      {
+        "criteria": "Specific Indications",
+        "question": "1.1",
+        "evaluatable": false,
+        "context": [],
+        "logic": "OR",
+        "subcriteria": [
+          {
+            "criteria": "Initial Bariatric/Metabolic Surgery for Adults",
+            "question": "1.1.1",
+            "evaluatable": false,
+            "context": [
+              "Applies to patients 18 years of age and older."
+            ],
+            "logic": "AND",
+            "subcriteria": [
+              {
+                "criteria": "Covered Procedure",
+                "question": "1.1.1.1",
+                "evaluatable": true,
+                "context": [
+                  "Covered procedures include:",
+                  "1. Open and Laparoscopic Roux-en-Y Gastric Bypass (RYGB)",
+                  "2. Open and Laparoscopic Biliopancreatic Diversion with Duodenal Switch (BPD-DS)",
+                  "3. Open and Laparoscopic SADI-S",
+                  "4. Laparoscopic Adjustable Gastric Banding (AGB) (Note: Variations apply for Commercial plans)",
+                  "5. Laparoscopic or open Sleeve Gastrectomy (SG)"
+                ],
+                "subcriteria": [],
+                "query": "Is the requested procedure one of the following: Roux-en-Y Gastric Bypass, Biliopancreatic Diversion with Duodenal Switch, SADI-S, Laparoscopic Adjustable Gastric Banding, or Sleeve Gastrectomy?"
+              },
+              {
+                "criteria": "Age Requirement",
+                "question": "1.1.1.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the patient at least 18 years of age?"
+              },
+              {
+                "criteria": "Psychological Evaluation",
+                "question": "1.1.1.3",
+                "evaluatable": true,
+                "context": [
+                  "Must be cleared by a licensed behavioral health professional with experience in bariatric surgery candidate evaluation.",
+                  "Must document no condition likely to jeopardize post-operative adherence.",
+                  "Must address existing or historical psychiatric disorders."
+                ],
+                "subcriteria": [],
+                "query": "Has the patient had a psychological evaluation and been cleared for bariatric surgery by a licensed behavioral health professional?"
+              },
+              {
+                "criteria": "Multidisciplinary Program Recommendation",
+                "question": "1.1.1.4",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is there a recommendation for participation in a multidisciplinary surgical preparatory program that includes dietary management, physical activity, and social support?"
+              },
+              {
+                "criteria": "Pregnancy Avoidance",
+                "question": "1.1.1.5",
+                "evaluatable": true,
+                "context": [
+                  "Applies to patients of childbearing potential."
+                ],
+                "subcriteria": [],
+                "query": "If the patient is of childbearing potential, have they been informed that malnutrition may impair fetal development and agreed to avoid pregnancy for a year following surgery?"
+              },
+              {
+                "criteria": "Optimization of Comorbidities",
+                "question": "1.1.1.6",
+                "evaluatable": true,
+                "context": [
+                  "Example: positive airway pressure therapy for obstructive sleep apnea."
+                ],
+                "subcriteria": [],
+                "query": "Has non-surgical management of comorbid conditions been optimized, with documentation of compliance with treatment?"
+              },
+              {
+                "criteria": "Center for Perioperative Care (CPC) Referral",
+                "question": "1.1.1.7",
+                "evaluatable": true,
+                "context": [
+                  "Referral is required if ALL of the following are met:",
+                  "a. Procedure performed at designated sites.",
+                  "b. Patient is 21 years or older.",
+                  "c. Patient is determined to be at intermediate or high risk per Clinical Analytics Application or EPIC Periop Risk Score."
+                ],
+                "subcriteria": [],
+                "query": "If the patient meets the criteria for CPC referral (designated site, age 21+, intermediate/high risk), has a referral to the CPC been made?"
+              },
+              {
+                "criteria": "BMI and Obesity Class Criteria",
+                "question": "1.1.1.8",
+                "evaluatable": false,
+                "context": [
+                  "Asian descent thresholds: Class 1 (>27.5), Class 2 (>=32.5), Class 3 (>=37.5)."
+                ],
+                "logic": "OR",
+                "subcriteria": [
+                  {
+                    "criteria": "Class 1 Obesity with Type 2 Diabetes",
+                    "question": "1.1.1.8.1",
+                    "evaluatable": false,
+                    "context": [
+                      "Class 1 Obesity: BMI 30-34.9 kg/m2 (27.5-32.4 kg/m2 for Asian descent)."
+                    ],
+                    "logic": "AND",
+                    "subcriteria": [
+                      {
+                        "criteria": "BMI Range",
+                        "question": "1.1.1.8.1.1",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Does the patient have a BMI between 30 and 34.9 kg/m2 (or 27.5-32.4 kg/m2 if of Asian descent)?"
+                      },
+                      {
+                        "criteria": "Type 2 Diabetes with Inadequate Control",
+                        "question": "1.1.1.8.1.2",
+                        "evaluatable": true,
+                        "context": [
+                          "Requires inadequate glycemic control despite compliance with optimal medical management (lifestyle modification and oral/injectable medications including insulin)."
+                        ],
+                        "subcriteria": [],
+                        "query": "Does the patient have Type 2 Diabetes with inadequate glycemic control despite optimal medical management?"
+                      },
+                      {
+                        "criteria": "6-Month Weight Loss Program",
+                        "question": "1.1.1.8.1.3",
+                        "evaluatable": true,
+                        "context": [
+                          "Must be a structured, physician-supervised, and nutritionist-guided program.",
+                          "Requirements: 6 months duration, 80% attendance, completed within 1 year of request, includes nutritional counseling, exercise, behavior modification, and weight loss/stability."
+                        ],
+                        "subcriteria": [],
+                        "query": "Is there documentation of completion of a six-month-long, structured, physician-supervised, and nutritionist-guided weight loss program?"
+                      }
+                    ]
+                  },
+                  {
+                    "criteria": "Class 2 Obesity with Comorbidity",
+                    "question": "1.1.1.8.2",
+                    "evaluatable": false,
+                    "context": [
+                      "Class 2 Obesity: BMI 35-39.9 kg/m2 (32.5-37.4 kg/m2 for Asian descent)."
+                    ],
+                    "logic": "AND",
+                    "subcriteria": [
+                      {
+                        "criteria": "BMI Range",
+                        "question": "1.1.1.8.2.1",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Does the patient have a BMI between 35 and 39.9 kg/m2 (or 32.5-37.4 kg/m2 if of Asian descent)?"
+                      },
+                      {
+                        "criteria": "Obesity Related Comorbidity",
+                        "question": "1.1.1.8.2.2",
+                        "evaluatable": true,
+                        "context": [
+                          "Comorbidities include:",
+                          "- Type 2 diabetes",
+                          "- Cardiovascular disease (CAD, cardiomyopathy, heart failure, pulmonary HTN, etc.)",
+                          "- Poorly controlled hypertension (>135/85 despite treatment)",
+                          "- Dyslipidemia",
+                          "- Obstructive sleep apnea",
+                          "- Obesity hypoventilation syndrome",
+                          "- Pseudotumor cerebri",
+                          "- NAFLD or NASH",
+                          "- Severe GERD refractory to medical management",
+                          "- Severe urinary incontinence",
+                          "- Prior to elective joint arthroplasty",
+                          "- When significant weight loss is required for necessary surgical procedure (e.g., hernia repair)"
+                        ],
+                        "subcriteria": [],
+                        "query": "Does the patient have a documented diagnosis of one or more obesity-related comorbidities?"
+                      },
+                      {
+                        "criteria": "6-Month Weight Loss Program",
+                        "question": "1.1.1.8.2.3",
+                        "evaluatable": true,
+                        "context": [
+                          "Must be a structured, physician-supervised, and nutritionist-guided program.",
+                          "Requirements: 6 months duration, 80% attendance, completed within 1 year of request, includes nutritional counseling, exercise, behavior modification, and weight loss/stability."
+                        ],
+                        "subcriteria": [],
+                        "query": "Is there documentation of completion of a six-month-long, structured, physician-supervised, and nutritionist-guided weight loss program?"
+                      }
+                    ]
+                  },
+                  {
+                    "criteria": "Class 3 Obesity",
+                    "question": "1.1.1.8.3",
+                    "evaluatable": false,
+                    "context": [
+                      "Class 3 Obesity: BMI >= 40 kg/m2 (>= 37.5 kg/m2 for Asian descent).",
+                      "Exempt from requirements for comorbidity diagnosis and weight loss program."
+                    ],
+                    "logic": "AND",
+                    "subcriteria": [
+                      {
+                        "criteria": "BMI Range",
+                        "question": "1.1.1.8.3.1",
+                        "evaluatable": true,
+                        "context": [],
+                        "subcriteria": [],
+                        "query": "Does the patient have a BMI of 40 kg/m2 or greater (or 37.5 kg/m2 or greater if of Asian descent)?"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "criteria": "Limitations and Contraindications",
+        "question": "1.2",
+        "evaluatable": false,
+        "context": [],
+        "logic": "NOR",
+        "subcriteria": [
+          {
+            "criteria": "Underlying Disease with Poor Prognosis",
+            "question": "1.2.1",
+            "evaluatable": true,
+            "context": [
+              "Likelihood of survival less than a year (e.g., cancer, liver failure)."
+            ],
+            "subcriteria": [],
+            "query": "Does the patient have a diagnosis of an underlying disease associated with a likelihood of survival of less than a year?"
+          },
+          {
+            "criteria": "Prohibitive Perioperative Risk",
+            "question": "1.2.2",
+            "evaluatable": true,
+            "context": [
+              "Advanced cardiac or pulmonary disease."
+            ],
+            "subcriteria": [],
+            "query": "Does the patient have advanced cardiac or pulmonary disease associated with prohibitive perioperative risk?"
+          },
+          {
+            "criteria": "Severe Developmental Disability/Cognitive Impairment",
+            "question": "1.2.3",
+            "evaluatable": true,
+            "context": [
+              "Limits ability to adhere to postsurgical diet and exercise programs."
+            ],
+            "subcriteria": [],
+            "query": "Does the patient have severe developmental disability or cognitive impairment that limits the ability to adhere to postsurgical programs?"
+          },
+          {
+            "criteria": "Active Substance Use Disorder",
+            "question": "1.2.4",
+            "evaluatable": true,
+            "context": [
+              "Must be in remission for at least six months."
+            ],
+            "subcriteria": [],
+            "query": "Does the patient have an active substance use disorder or less than six months of remission?"
+          },
+          {
+            "criteria": "Active Eating Disorder",
+            "question": "1.2.5",
+            "evaluatable": true,
+            "context": [
+              "e.g., anorexia nervosa, bulimia, binge-eating disorder, pica."
+            ],
+            "subcriteria": [],
+            "query": "Does the patient have an active eating disorder?"
+          },
+          {
+            "criteria": "Active Smoking",
+            "question": "1.2.6",
+            "evaluatable": true,
+            "context": [
+              "Includes marijuana, e-cigarettes, vaping.",
+              "Exception: Enrolled and actively participating in a MyHealth smoking cessation program.",
+              "Exception: Medical marijuana (ingestible)."
+            ],
+            "subcriteria": [],
+            "query": "Is the patient an active smoker (including vaping/marijuana) and NOT enrolled in a smoking cessation program?"
+          }
+        ]
+      }
+    ]
+  }
+}

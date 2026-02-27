@@ -1,0 +1,103 @@
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env.development
+frontend/.env.production
+
+# Keep example files
+!.env.example
+!.env.*.example
+
+# Claude Code settings (contains local session data)
+.claude/settings.local.json
+
+# Copied external libraries (contain sample data with old credentials)
+data-labelling-library/
+Standard_UI_Template/
+platform-starter-kit/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+!frontend/src/lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+ENV/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Documents uploaded by users (large files)
+backend/documents/
+!backend/documents/.gitkeep
+
+# OCR cache and temp files
+*.pdf.cache
+*.ocr.json
+
+# Database
+*.db
+*.sqlite3
+
+# Credentials and keys
+*.pem
+!global-bundle.pem
+*.key
+credentials.json
+service-account.json

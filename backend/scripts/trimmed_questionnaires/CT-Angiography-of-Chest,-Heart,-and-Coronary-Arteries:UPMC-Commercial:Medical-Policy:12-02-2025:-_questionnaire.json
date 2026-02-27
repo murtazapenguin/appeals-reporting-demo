@@ -1,0 +1,528 @@
+{
+  "source_file": "CT-Angiography-of-Chest,-Heart,-and-Coronary-Arteries:Commercial:Medical-Policy:12-02-2025:-.pdf",
+  "num_pages": 26,
+  "guideline_name": "CT Angiography of Chest, Heart, and Coronary Arteries",
+  "line_of_business": [
+    "COMMERCIAL All",
+    "CMS-MA PA",
+    "CMS-MA HMO",
+    "CMS-MA PPO",
+    "CMS-MA DSNP",
+    "GOVT FEHBP",
+    "GOVT PSHBP",
+    "DHS-MA Health Choices/PH",
+    "CHIP",
+    "COMMUNITY HEALTHCHOICES CHC/MLTSS"
+  ],
+  "cpt_codes": [
+    "71275",
+    "75571",
+    "75572",
+    "75573",
+    "75574",
+    "0623T",
+    "0624T",
+    "0625T",
+    "0626T",
+    "0710T",
+    "0711T",
+    "0712T",
+    "0713T"
+  ],
+  "hcpcs_codes": [
+    "C9793"
+  ],
+  "icd_10_codes": [
+    "D49.1",
+    "I26.01",
+    "I26.02",
+    "I26.03",
+    "I26.04",
+    "I26.09",
+    "I26.90",
+    "I26.92",
+    "I26.93",
+    "I26.94",
+    "I26.95",
+    "I26.96",
+    "I26.99",
+    "I27.0",
+    "I27.21",
+    "I27.23",
+    "I27.24",
+    "I27.29",
+    "I27.81",
+    "I27.82",
+    "I27.83",
+    "I27.89",
+    "I27.9",
+    "I28.0",
+    "I28.1",
+    "I28.8",
+    "I48.0 - I48.92",
+    "I70.0",
+    "I71.00",
+    "I71.010",
+    "I71.011",
+    "I71.012",
+    "I71.019",
+    "I71.03",
+    "I71.10",
+    "I71.11",
+    "I71.12",
+    "I71.13",
+    "I71.20",
+    "I71.21",
+    "I71.22",
+    "I71.23",
+    "I71.50",
+    "I71.51",
+    "I71.52",
+    "I71.60",
+    "I71.61",
+    "I71.62",
+    "I74.11",
+    "I87.1",
+    "J80",
+    "J95.1",
+    "J95.821",
+    "J96.01",
+    "J96.91",
+    "Q25.1",
+    "Q25.21",
+    "Q25.29",
+    "Q25.42",
+    "Q25.43",
+    "Q25.44",
+    "Q25.45",
+    "Q25.46",
+    "Q25.47",
+    "Q25.48",
+    "Q25.49",
+    "Q25.5",
+    "Q25.6",
+    "Q25.71",
+    "Q25.72",
+    "Q25.79",
+    "Q25.8",
+    "Q25.9",
+    "Q26.0",
+    "Q26.1",
+    "Q26.2",
+    "Q26.3",
+    "Q26.4",
+    "Q26.8",
+    "Q26.9",
+    "Q87.410",
+    "Q87.418",
+    "R00.0",
+    "R04.2",
+    "R04.89",
+    "R04.9",
+    "R06.00",
+    "R06.02",
+    "R06.03",
+    "R06.09",
+    "R06.82",
+    "R07.1",
+    "R07.2",
+    "R07.81",
+    "R07.89",
+    "R79.1",
+    "S25.00XA-S25.99XS",
+    "S26.00XA-S26.99XS",
+    "T82.817A-T82.817S",
+    "T82.837A-T82.837S",
+    "Z01.810",
+    "E78.00",
+    "E78.010",
+    "E78.011",
+    "E78.019",
+    "E78.1",
+    "E78.2",
+    "E78.49",
+    "E78.5",
+    "I10",
+    "I20.89",
+    "I25.10",
+    "I25.2",
+    "I35.0",
+    "R00.2",
+    "R07.9",
+    "R93.1",
+    "R94.39",
+    "Z13.6",
+    "Z82.49",
+    "B33.23",
+    "C38.0",
+    "C45.2",
+    "C79.89",
+    "D15.1",
+    "D15.2",
+    "I25.3",
+    "I31.0",
+    "I31.1",
+    "I31.2",
+    "I31.31",
+    "I31.39",
+    "I31.4",
+    "I31.8",
+    "I31.9",
+    "I34.0",
+    "I34.1",
+    "I34.2",
+    "I34.81",
+    "I34.89",
+    "I34.9",
+    "I35.1",
+    "I35.2",
+    "I35.8",
+    "I35.9",
+    "I42.0",
+    "I42.5",
+    "I42.8",
+    "I42.9",
+    "I48.0",
+    "I50.810",
+    "I50.811",
+    "I51.0",
+    "I51.3",
+    "I51.4",
+    "M30.3",
+    "M32.12",
+    "M35.81",
+    "T82.01XA-T82.09XS",
+    "T82.221A-T82.228S",
+    "T82.6XXA-T82.6XXS",
+    "T82.817A-T82.898S",
+    "Z95.2",
+    "Z95.3",
+    "Z95.4",
+    "Q20.0-Q20.9",
+    "Q21.0-Q21.9",
+    "Q22.0-Q22.9",
+    "Q23.0-Q23.9",
+    "Q24.0-Q24.9",
+    "Q25.0-Q25.9",
+    "Q28.8",
+    "Q28.9",
+    "I20.0",
+    "I20.9",
+    "I24.0",
+    "I24.89",
+    "I25.110",
+    "I25.118",
+    "I25.119",
+    "I25.85",
+    "I50.20-I50.23",
+    "Q24.5",
+    "R94.30-R94.39",
+    "T82.211A-T82.218S",
+    "T82.9XXA-T82.9XXS",
+    "Z94.1",
+    "Z94.3",
+    "Z95.1",
+    "Z95.5"
+  ],
+  "guidelines": {
+    "criteria": "CT Angiography of Chest, Heart, and Coronary Arteries",
+    "question": "1",
+    "evaluatable": false,
+    "context": [
+      "This policy applies to the Health Plan's lines of business.",
+      "Computed Tomographic Angiography (CTA) uses high-resolution CT technology with intravenous dye to visualize coronary arteries, cardiac structures, and non-cardiac thoracic vessels.",
+      "Definitions:",
+      "High Risk Non-Cardiac Surgery: Emergent procedures, particularly among the elderly, aortic and major lung surgeries, peripheral vascular surgeries, and procedures involving large fluid shifts or blood loss and expected to significantly affect hemodynamics.",
+      "Known Coronary Artery Disease (CAD): Includes history of myocardial infarction, revascularization, and the finding of either obstructive CAD or non-obstructive atherosclerotic plaque (<50% obstruction) on prior anatomic testing."
+    ],
+    "logic": "AND",
+    "subcriteria": [
+      {
+        "criteria": "Specific Indications",
+        "question": "1.1",
+        "evaluatable": false,
+        "context": [],
+        "logic": "OR",
+        "subcriteria": [
+          {
+            "criteria": "Coronary CT Angiography (CPT Code 75574)",
+            "question": "1.1.1",
+            "evaluatable": false,
+            "context": [
+              "Includes bypass grafts when present.",
+              "Requires use of at least 64-slice scanners."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "Assessment of obstructive CAD in intermediate-risk patients with acute chest pain, no known CAD, and normal findings or prior mild ischemia",
+                "question": "1.1.1.1",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be intermediate-risk.",
+                  "Patient must have acute chest pain.",
+                  "Patient must have NO known CAD.",
+                  "Findings must be normal OR prior stress testing within past year indicated mild ischemia."
+                ],
+                "subcriteria": [],
+                "query": "Is the request to assess the presence, extent, and severity of obstructive CAD in an intermediate-risk patient with acute chest pain who has no known CAD and either normal findings or prior stress testing (within the past year) indicative of mild ischemia?"
+              },
+              {
+                "criteria": "Assessment of plaque progression in intermediate-risk patients with acute chest pain and known nonobstructive CAD",
+                "question": "1.1.1.2",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be intermediate-risk.",
+                  "Patient must have acute chest pain.",
+                  "Patient must have KNOWN nonobstructive CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is the request to assess progression of plaque and obstructive CAD in an intermediate-risk patient with acute chest pain who has known nonobstructive CAD?"
+              },
+              {
+                "criteria": "Initial test for CAD diagnosis/risk stratification in intermediate- to high-risk patients with stable chest pain and no known CAD",
+                "question": "1.1.1.3",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be intermediate- to high-risk.",
+                  "Patient must have stable chest pain.",
+                  "Patient must have NO known CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is this an initial test to diagnose CAD, stratify risk, and plan treatment in an intermediate- to high-risk patient with stable chest pain and no known CAD?"
+              },
+              {
+                "criteria": "Alternative to invasive coronary angiography in intermediate- to high-risk patients with stable chest pain and no known CAD after stress testing",
+                "question": "1.1.1.4",
+                "evaluatable": false,
+                "context": [
+                  "Patient must be intermediate- to high-risk.",
+                  "Patient must have stable chest pain.",
+                  "Patient must have NO known CAD.",
+                  "Stress testing was performed."
+                ],
+                "logic": "OR",
+                "subcriteria": [
+                  {
+                    "criteria": "Inconclusive stress test",
+                    "question": "1.1.1.4.1",
+                    "evaluatable": true,
+                    "context": [],
+                    "subcriteria": [],
+                    "query": "Was the prior stress test inconclusive?"
+                  },
+                  {
+                    "criteria": "Moderate to severe ischemia found, but symptoms persist despite optimization of preventive therapies",
+                    "question": "1.1.1.4.2",
+                    "evaluatable": true,
+                    "context": [],
+                    "subcriteria": [],
+                    "query": "Did the stress test find moderate to severe ischemia, and do symptoms persist despite optimization of preventive therapies?"
+                  }
+                ]
+              },
+              {
+                "criteria": "Assessment following abnormal or inconclusive stress testing in intermediate- to high-risk patients with stable chest pain and no known CAD",
+                "question": "1.1.1.5",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be intermediate- to high-risk.",
+                  "Patient must have stable chest pain.",
+                  "Patient must have NO known CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is the request to assess obstructive CAD following abnormal or inconclusive stress testing in an intermediate- to high-risk patient with stable chest pain and no known CAD?"
+              },
+              {
+                "criteria": "Assessment following negative stress testing in intermediate- to high-risk patients with stable chest pain, no known CAD, but high clinical suspicion",
+                "question": "1.1.1.6",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be intermediate- to high-risk.",
+                  "Patient must have stable chest pain.",
+                  "Patient must have NO known CAD.",
+                  "High clinical suspicion of CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is the request to assess obstructive CAD following negative stress testing in an intermediate- to high-risk patient with stable chest pain, no known CAD, but high clinical suspicion of CAD?"
+              },
+              {
+                "criteria": "Assessment of plaque burden/progression in patients with stable chest pain and known nonobstructive CAD",
+                "question": "1.1.1.7",
+                "evaluatable": true,
+                "context": [
+                  "Patient must have stable chest pain.",
+                  "Patient must have KNOWN nonobstructive CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is the request to assess plaque burden and progression to obstructive CAD and guide treatment in a patient with stable chest pain and known nonobstructive CAD?"
+              },
+              {
+                "criteria": "Pre-operative CAD assessment for high-risk non-cardiac surgery",
+                "question": "1.1.1.8",
+                "evaluatable": true,
+                "context": [
+                  "Patient must be stable, higher-risk.",
+                  "Scheduled for high-risk non-cardiac surgery (emergent, elderly, aortic/major lung, peripheral vascular, large fluid shifts).",
+                  "In lieu of stress test OR if invasive angiography is not feasible."
+                ],
+                "subcriteria": [],
+                "query": "Is this for pre-operative CAD assessment of a stable, higher-risk patient scheduled to undergo high-risk non-cardiac surgery, in lieu of a stress test or because invasive coronary angiography is not feasible?"
+              }
+            ]
+          },
+          {
+            "criteria": "Calcium Score Testing (CPT 75571)",
+            "question": "1.1.2",
+            "evaluatable": false,
+            "context": [],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "Exclude calcified plaque in low-risk patients",
+                "question": "1.1.2.1",
+                "evaluatable": true,
+                "context": [
+                  "Low-risk patients.",
+                  "Stable chest pain.",
+                  "No known CAD."
+                ],
+                "subcriteria": [],
+                "query": "Is the test intended to exclude calcified plaque in a low-risk patient with stable chest pain and no known CAD?"
+              },
+              {
+                "criteria": "Intermediate- to high-risk patients with mild ischemia on stress testing",
+                "question": "1.1.2.2",
+                "evaluatable": true,
+                "context": [
+                  "Intermediate- to high-risk patients.",
+                  "Stable chest pain.",
+                  "No known CAD.",
+                  "Mild ischemia found upon stress testing."
+                ],
+                "subcriteria": [],
+                "query": "Is the patient an intermediate- to high-risk individual with stable chest pain and no known CAD who was found to have mild ischemia upon stress testing?"
+              },
+              {
+                "criteria": "Decision-making regarding statin therapy",
+                "question": "1.1.2.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the test intended to aid in decision-making for a patient uncertain or reluctant to initiate or intensify statin therapy?"
+              },
+              {
+                "criteria": "Refine risk assessment in asymptomatic patients",
+                "question": "1.1.2.4",
+                "evaluatable": true,
+                "context": [
+                  "Asymptomatic patients.",
+                  "Borderline or intermediate risk."
+                ],
+                "subcriteria": [],
+                "query": "Is the test intended to refine risk assessment, determine the need for subsequent testing, and guide management in an asymptomatic patient with borderline or intermediate risk?"
+              }
+            ]
+          },
+          {
+            "criteria": "Cardiac CT (Non-coronary; CPT Code 75572)",
+            "question": "1.1.3",
+            "evaluatable": false,
+            "context": [
+              "Performed with at least a 64-slice scanner.",
+              "To define details of cardiac morphology."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "Pre-procedure pulmonary vein mapping for atrial fibrillation ablation",
+                "question": "1.1.3.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the scan for pre-procedure pulmonary vein mapping prior to catheter ablation for atrial fibrillation?"
+              },
+              {
+                "criteria": "Post-procedure evaluation of pulmonary veins",
+                "question": "1.1.3.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the scan for post-procedure evaluation of pulmonary veins following isolation/ablation for atrial fibrillation to rule out pulmonary vein occlusion?"
+              },
+              {
+                "criteria": "Pre-procedural determination for biventricular pacemaker insertion",
+                "question": "1.1.3.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the scan for pre-procedural determination of coronary vein morphology and cardiac anatomy prior to biventricular pacemaker insertion?"
+              },
+              {
+                "criteria": "Pre-procedure evaluation for LAA closure device",
+                "question": "1.1.3.4",
+                "evaluatable": true,
+                "context": [
+                  "In lieu of transesophageal echocardiography (TEE)."
+                ],
+                "subcriteria": [],
+                "query": "Is the scan for pre-procedure evaluation of the left atrial appendage (LAA), pulmonary vein, and other cardiac structures prior to placement of a LAA closure device (in lieu of TEE)?"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "criteria": "Limitations and Exclusions",
+        "question": "1.2",
+        "evaluatable": false,
+        "context": [],
+        "logic": "NOR",
+        "subcriteria": [
+          {
+            "criteria": "Ordering provider requirements",
+            "question": "1.2.1",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Was the study ordered by a provider other than a physician or qualified non-physician practitioner?"
+          },
+          {
+            "criteria": "Supervision requirements",
+            "question": "1.2.2",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Will the image-acquisition portion of testing be performed without a Board Certified (ABMS) Cardiologist or Radiologist present?"
+          },
+          {
+            "criteria": "Duplicative testing",
+            "question": "1.2.3",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Is the selection of CTA duplicative of other testing modalities or not needed to advance patient management decisions?"
+          },
+          {
+            "criteria": "Routine general screening",
+            "question": "1.2.4",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Is the CT angiography being used for routine general screening of an asymptomatic patient (apart from covered indications)?"
+          },
+          {
+            "criteria": "Separate billing for 3D rendering",
+            "question": "1.2.5",
+            "evaluatable": true,
+            "context": [
+              "3D rendering is incorporated into coding descriptions."
+            ],
+            "subcriteria": [],
+            "query": "Is there a request for separate billing for 3D rendering (CPT 76377)?"
+          }
+        ]
+      }
+    ]
+  }
+}

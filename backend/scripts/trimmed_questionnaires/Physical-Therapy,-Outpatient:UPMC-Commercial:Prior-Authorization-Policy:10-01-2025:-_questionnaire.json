@@ -1,0 +1,263 @@
+{
+  "source_file": "Physical-Therapy,-Outpatient:Commercial:Prior-Authorization-Policy:10-01-2025:-.pdf",
+  "num_pages": 30,
+  "guideline_name": "Physical Therapy, Outpatient",
+  "line_of_business": [
+    "COMMERCIAL PA",
+    "COMMERCIAL HMO",
+    "DSNP",
+    "COMMERCIAL All",
+    "CMS-MA PPO",
+    "GOVT FEHBP",
+    "PSHBP",
+    "DHS-MA Health Choices/PH",
+    "COMMUNITY HEALTHCHOICES CHC/MLTSS"
+  ],
+  "cpt_codes": [
+    "0552T",
+    "20560",
+    "20561",
+    "90901",
+    "90912",
+    "90913",
+    "92548",
+    "95851",
+    "95852",
+    "95992",
+    "97010",
+    "97012",
+    "97014",
+    "97016",
+    "97018",
+    "97022",
+    "97024",
+    "97026",
+    "97028",
+    "97032",
+    "97033",
+    "97034",
+    "97035",
+    "97036",
+    "97037",
+    "97110",
+    "97112",
+    "97113",
+    "97116",
+    "97124",
+    "97129",
+    "97130",
+    "97140",
+    "97150",
+    "97161",
+    "97162",
+    "97163",
+    "97164",
+    "97530",
+    "97533",
+    "97535",
+    "97537",
+    "97542",
+    "97545",
+    "97546",
+    "97750",
+    "97755",
+    "97760",
+    "97761",
+    "97763",
+    "99509"
+  ],
+  "hcpcs_codes": [
+    "G0281",
+    "G0283",
+    "G0295",
+    "G0329",
+    "S8940",
+    "S9090"
+  ],
+  "icd_10_codes": [],
+  "guidelines": {
+    "criteria": "Physical Therapy, Outpatient Medical Management",
+    "question": "1",
+    "evaluatable": false,
+    "context": [
+      "Health Plan Policy MP.PA.129",
+      "This policy applies to outpatient physical therapy (PT) continuing beyond the initial evaluation and eight subsequent visits.",
+      "Outpatient physical therapy visits after the initial evaluation require prior authorization.",
+      "After eight visits, additional outpatient physical therapy requests require prior authorization per this policy."
+    ],
+    "logic": "AND",
+    "subcriteria": [
+      {
+        "criteria": "Specific Indications for Continuation of Physical Therapy",
+        "question": "1.1",
+        "evaluatable": false,
+        "context": [
+          "Continuation of physical therapy services for the ninth and successive visits is considered medically necessary when all the following criteria are met and progress reports have been provided every eight visits."
+        ],
+        "logic": "AND",
+        "subcriteria": [
+          {
+            "criteria": "Previous Evaluation",
+            "question": "1.1.1",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Has a PT evaluation/re-evaluation been previously completed to assess a physical impairment and/or functional deficit?"
+          },
+          {
+            "criteria": "Condition Status and Improvement",
+            "question": "1.1.2",
+            "evaluatable": false,
+            "context": [],
+            "logic": "AND",
+            "subcriteria": [
+              {
+                "criteria": "Documented Improvement",
+                "question": "1.1.2.1",
+                "evaluatable": true,
+                "context": [
+                  "Improvement must be documented by successive objective measurements at regular intervals.",
+                  "Refer to Appendix A for examples of standardized patient-reported outcomes tools."
+                ],
+                "subcriteria": [],
+                "query": "Has improvement in response to therapy been documented by successive objective measurements at regular intervals?"
+              },
+              {
+                "criteria": "Potential for Further Improvement",
+                "question": "1.1.2.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the condition have the potential to improve further?"
+              }
+            ]
+          },
+          {
+            "criteria": "Individualized Program",
+            "question": "1.1.3",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Is the program individualized, and does the treatment plan for the requested extended visits identify quantifiable, attainable treatment goals?"
+          },
+          {
+            "criteria": "Qualified Provider",
+            "question": "1.1.5",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Are the services delivered by a qualified provider of physical therapy services (appropriately trained and licensed by the state)?"
+          },
+          {
+            "criteria": "Complexity and Skills Required",
+            "question": "1.1.6",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Do the requested services require the expertise and skills of a qualified PT provider, as evidenced by the complexity of the plan of care and nature of the condition being treated?"
+          }
+        ]
+      },
+      {
+        "criteria": "Limitations and Exclusions",
+        "question": "1.2",
+        "evaluatable": false,
+        "context": [
+          "Continuation beyond eight visits of physical therapy services is not medically necessary for any of the following."
+        ],
+        "logic": "NOR",
+        "subcriteria": [
+          {
+            "criteria": "No Potential for Improvement",
+            "question": "1.2.1",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Is the continued treatment for a condition that no longer has the potential to achieve further improvement?"
+          },
+          {
+            "criteria": "Lack of Documented Progress",
+            "question": "1.2.2",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Does the documentation fail to substantiate subjective, objective, and functional progress achieved over the course of treatment to date?"
+          },
+          {
+            "criteria": "Gains Met by Home Exercise Program",
+            "question": "1.2.3",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Can further gains be met by a home exercise program?"
+          },
+          {
+            "criteria": "Unskilled Care",
+            "question": "1.2.6",
+            "evaluatable": false,
+            "context": [
+              "Therapy or activities which do not require the care of a qualified PT provider."
+            ],
+            "logic": "OR",
+            "subcriteria": [
+              {
+                "criteria": "General Exercise",
+                "question": "1.2.6.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the service for general exercise programs for fitness, flexibility, or strength?"
+              },
+              {
+                "criteria": "Self-Administered Services",
+                "question": "1.2.6.4",
+                "evaluatable": true,
+                "context": [
+                  "Example: passive range of motion treatment that is not part of a plan of care to restore function."
+                ],
+                "subcriteria": [],
+                "query": "Is the service able to be self-administered or done without a therapist's supervision?"
+              },
+              {
+                "criteria": "Maintenance Therapy",
+                "question": "1.2.6.5",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is the service considered maintenance therapy (continued repetition of activities to maintain function once supervised instruction has been completed)?"
+              }
+            ]
+          },
+          {
+            "criteria": "Duplicative or Redundant Services",
+            "question": "1.2.7",
+            "evaluatable": true,
+            "context": [
+              "Examples: multiple modalities with similar effects, or duplicative therapy by other disciplines (e.g., chiropractic)."
+            ],
+            "subcriteria": [],
+            "query": "Are the services duplicative or redundant and expected to achieve the same therapeutic goal?"
+          },
+          {
+            "criteria": "Independent Physical Modalities",
+            "question": "1.2.11",
+            "evaluatable": true,
+            "context": [
+              "Example: ultrasound, infrared heat, etc."
+            ],
+            "subcriteria": [],
+            "query": "Are physical modalities performed independently rather than in conjunction with other skilled treatment interventions?"
+          },
+          {
+            "criteria": "Minimal Clinical Value",
+            "question": "1.2.15",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Have the treatments been deemed to provide minimal to no clinical value or are they not recognized as the current standard of care?"
+          }
+        ]
+      }
+    ]
+  }
+}

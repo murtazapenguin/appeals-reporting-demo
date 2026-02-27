@@ -1,0 +1,262 @@
+{
+  "source_file": "Shoulder-Procedures:Commercial:Prior-Authorization-Policy:09-01-2025:-.pdf",
+  "num_pages": 16,
+  "guideline_name": "Shoulder Procedures",
+  "line_of_business": [
+    "COMMERCIAL All",
+    "CMS-MA PA",
+    "CMS-MA HMO",
+    "CMS-MA PPO",
+    "CMS-MA DSNP",
+    "GOVT FEHBP",
+    "GOVT PSHBP",
+    "DHS-MA Health Choices/PH",
+    "CHIP",
+    "COMMUNITY HEALTHCHOICES CHC/MLTSS"
+  ],
+  "cpt_codes": [
+    "23120",
+    "23130",
+    "23410",
+    "23412",
+    "23415",
+    "23420",
+    "23430",
+    "23450",
+    "23455",
+    "23460",
+    "23462",
+    "23465",
+    "23466",
+    "23470",
+    "23472",
+    "23473",
+    "23474",
+    "23800",
+    "23802",
+    "29805",
+    "29806",
+    "29807",
+    "29819",
+    "29820",
+    "29821",
+    "29822",
+    "29823",
+    "29824",
+    "29825",
+    "29826",
+    "29827",
+    "29828"
+  ],
+  "hcpcs_codes": [
+    "S2300",
+    "C9781"
+  ],
+  "icd_10_codes": [],
+  "guidelines": {
+    "criteria": "Shoulder Procedures (Policy MP.PA.136)",
+    "question": "1",
+    "evaluatable": false,
+    "context": [
+      "This policy defines the medical necessity criteria for shoulder procedures.",
+      "Arthroscopy - a minimally invasive surgical technique used to examine, diagnose, and treat joints, which involves the insertion of an arthroscope and small surgical instruments through several small incisions into the joint for examination.",
+      "Capsulorrhaphy - the tightening of a torn joint capsule by suturing or shrinking with a thermal laser.",
+      "Hemi-arthroplasty - a surgical procedure that involves replacing the humeral head with a prosthesis, without replacing the glenoid.",
+      "Reverse total shoulder arthroplasty - a surgical procedure where damaged bone and cartilage is removed from the glenohumeral joint and replaced with artificial components. The head of the humerus is replaced with a socket, and a prosthetic ball is attached to the scapula.",
+      "Revision shoulder arthroplasty - a surgical procedure that involves reconstruction or replacement of the artificial components due to failure or complication.",
+      "Superior Labrum Anterior Posterior Repair (SLAP) - a surgical procedure to repair the superior labrum when it is torn at the top in both the front (anterior) and back (posterior) of where it attaches to the bicep tendon.",
+      "Total shoulder arthroplasty - a surgical procedure where damaged bone and cartilage is removed from the glenohumeral joint and replaced with artificial components. The head of the humerus is replaced with a prosthetic ball, and the glenoid surface is smoothed and replaced with a prosthetic socket."
+    ],
+    "logic": "AND",
+    "subcriteria": [
+      {
+        "criteria": "Specific Indications",
+        "question": "1.1",
+        "evaluatable": false,
+        "context": [],
+        "logic": "OR",
+        "subcriteria": [
+          {
+            "criteria": "Labral Repair (SLAP)/Biceps Tenodesis (CPT 23430, 29807, 29828)",
+            "question": "1.1.4",
+            "evaluatable": false,
+            "context": [
+              "For superior labral tear-bicipital tendon disease"
+            ],
+            "logic": "AND",
+            "subcriteria": [
+              {
+                "criteria": "Shoulder pain and associated functional disability which interferes with ADLs",
+                "question": "1.1.4.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have shoulder pain and associated functional disability which interferes with activities of daily living (ADLs)?"
+              },
+              {
+                "criteria": "Exam findings consistent with SLAP or biceps tendon disease (e.g., Positive O'Brien's test, pain when palpating the bicipital groove, Mayo shear test, or Whipple sign)",
+                "question": "1.1.4.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Are there exam findings consistent with SLAP or biceps tendon disease (e.g., Positive O'Brien's test, pain when palpating the bicipital groove, Mayo shear test, or Whipple sign)?"
+              },
+              {
+                "criteria": "Previous imaging may demonstrate a labral tear and/or bicipital tendon pathology",
+                "question": "1.1.4.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does previous imaging demonstrate a labral tear and/or bicipital tendon pathology?"
+              },
+              {
+                "criteria": "Six weeks of physician directed or supervised physical therapy program",
+                "question": "1.1.4.4",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Has the patient completed a six-week physician directed or supervised physical therapy program?"
+              },
+              {
+                "criteria": "Six weeks of analgesic or anti-inflammatory medications unless patient has a contraindication or drug intolerance",
+                "question": "1.1.4.5",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Has the patient tried six weeks of analgesic or anti-inflammatory medications? (Return TRUE if the patient has a contraindication or drug intolerance)"
+              }
+            ]
+          },
+          {
+            "criteria": "Rotator Cuff Repair (CPT 23410, 23412, 23420, 29827)",
+            "question": "1.1.6",
+            "evaluatable": false,
+            "context": [],
+            "logic": "AND",
+            "subcriteria": [
+              {
+                "criteria": "Medical record demonstrates rupture with loss of function",
+                "question": "1.1.6.1",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the medical record demonstrate rupture with loss of function?"
+              },
+              {
+                "criteria": "Shoulder pain and associated functional disability that interferes with ADLs",
+                "question": "1.1.6.2",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does the patient have shoulder pain and associated functional disability that interferes with activities of daily living (ADLs)?"
+              },
+              {
+                "criteria": "Limited or painful ROM in the shoulder with active ROM",
+                "question": "1.1.6.3",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is there limited or painful range of motion (ROM) in the shoulder with active ROM?"
+              },
+              {
+                "criteria": "Shoulder weakness or pain with resistance is present on physical exam",
+                "question": "1.1.6.4",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Is shoulder weakness or pain with resistance present on physical exam?"
+              },
+              {
+                "criteria": "Physical exam findings consistent with rotator cuff tear (e.g., Positive Drop Arm, Neer Impingement, Hawkins Kennedy Impingement, or Painful Arc test)",
+                "question": "1.1.6.5",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Are physical exam findings consistent with rotator cuff tear (e.g., Positive Drop Arm, Neer Impingement, Hawkins Kennedy Impingement, or Painful Arc test)?"
+              },
+              {
+                "criteria": "Previous imaging demonstrates a partial or full thickness rotator cuff tear",
+                "question": "1.1.6.6",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Does previous imaging demonstrate a partial or full thickness rotator cuff tear?"
+              },
+              {
+                "criteria": "A subacromial therapeutic injection, if indicated, has failed or been offered and rejected, unless traumatic history",
+                "question": "1.1.6.7",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Has a subacromial therapeutic injection (if indicated) failed or been offered and rejected? (Return TRUE if the patient has a traumatic history)"
+              },
+              {
+                "criteria": "Six weeks of physician directed or supervised physical therapy program, unless symptoms preclude or traumatic history",
+                "question": "1.1.6.8",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Has the patient completed a six-week physician directed or supervised physical therapy program? (Return TRUE if symptoms preclude participation or if the patient has a traumatic history)"
+              },
+              {
+                "criteria": "Six weeks of analgesic or anti-inflammatory medications unless patient has a contraindication or drug intolerance, or symptoms preclude or traumatic history",
+                "question": "1.1.6.9",
+                "evaluatable": true,
+                "context": [],
+                "subcriteria": [],
+                "query": "Has the patient tried six weeks of analgesic or anti-inflammatory medications? (Return TRUE if the patient has a contraindication/drug intolerance, symptoms preclude use, or if the patient has a traumatic history)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "criteria": "Limitations and Exclusions",
+        "question": "1.2",
+        "evaluatable": false,
+        "context": [],
+        "logic": "NOR",
+        "subcriteria": [
+          {
+            "criteria": "The device used is NOT FDA-approved for the specific indication",
+            "question": "1.2.1",
+            "evaluatable": true,
+            "context": [],
+            "subcriteria": [],
+            "query": "Is the device used NOT FDA-approved for the specific indication?"
+          },
+          {
+            "criteria": "In-office diagnostic arthroscopy (e.g., Mi-Eye, VisionScope)",
+            "question": "1.2.2",
+            "evaluatable": true,
+            "context": [
+              "Considered not medically necessary, experimental and investigational"
+            ],
+            "subcriteria": [],
+            "query": "Is the procedure an in-office diagnostic arthroscopy (e.g., Mi-Eye, VisionScope)?"
+          },
+          {
+            "criteria": "Thermally induced capsulorrhaphy (e.g., ArthroCare system 2000 CAPS X Arthro Wand, ORA-50 electrothermal system, VULCAN EAS, VAPR II)",
+            "question": "1.2.3",
+            "evaluatable": true,
+            "context": [
+              "Considered not medically necessary, experimental and investigational"
+            ],
+            "subcriteria": [],
+            "query": "Is the procedure thermally induced capsulorrhaphy (e.g., ArthroCare system 2000 CAPS X Arthro Wand, ORA-50 electrothermal system, VULCAN EAS, VAPR II)?"
+          },
+          {
+            "criteria": "Microfracturing of the shoulder",
+            "question": "1.2.4",
+            "evaluatable": true,
+            "context": [
+              "Considered not medically necessary, experimental and investigational"
+            ],
+            "subcriteria": [],
+            "query": "Is the procedure microfracturing of the shoulder?"
+          }
+        ]
+      }
+    ]
+  }
+}

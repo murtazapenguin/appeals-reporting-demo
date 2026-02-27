@@ -1,0 +1,4 @@
+claim_number,patient_name,patient_id,provider_name,payer_name,payer_id,service_date,denial_date,denial_category,claim_amount,procedure_code,diagnosis_codes,denial_reason,priority
+CLM-HIP-2024-002,James Wilson,PT-300001,Dr. Michael Torres,Blue Cross Blue Shield,blue_cross_blue_shield,2024/09/15,2024/10/01,Medical Necessity,52000,27130,"M16.11,M16.12",Total hip arthroplasty not medically necessary - conservative treatment not exhausted,high
+CLM-SPINE-2024-002,Patricia Davis,PT-300002,Dr. Emily Parker,Aetna,aetna,2024/08/20,2024/09/05,Medical Necessity,38000,63047,"M51.16,M54.5",Lumbar laminectomy requires additional documentation of medical necessity,normal
+CLM-KNEE-2024-002,William Brown,PT-300003,Dr. John Smith,Cigna,cigna,2024/09/01,2024/09/15,Medical Necessity,15000,29881,"M23.21,M17.11",Knee arthroscopy - insufficient documentation of conservative treatment failure,normal
