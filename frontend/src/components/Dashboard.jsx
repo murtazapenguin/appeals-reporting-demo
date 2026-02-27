@@ -119,32 +119,37 @@ const Dashboard = () => {
       </Box>
 
       {/* KPI Cards */}
-      <Grid container spacing={3} mb={4}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(5, 1fr)' },
+          gap: 3,
+          mb: 4,
+        }}
+      >
         {metricCards.map((card, i) => (
-          <Grid key={i} size={{ xs: 12, sm: 6, md: 4, xl: 2.4 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Avatar
-                  sx={{ bgcolor: card.palette.bg, width: 44, height: 44, mb: 2 }}
-                  variant="rounded"
-                >
-                  <card.Icon style={{ width: 22, height: 22, color: card.palette.fg }} />
-                </Avatar>
-                <Typography variant="caption" color="text.secondary" display="block">
-                  {card.title}
-                </Typography>
-                <Stack direction="row" alignItems="baseline" spacing={1} mt={0.5}>
-                  <Typography variant="h5">{card.value}</Typography>
-                  {card.amount && (
-                    <Typography variant="body2" color="text.secondary">{card.amount}</Typography>
-                  )}
-                </Stack>
-                <Typography variant="caption" color="text.secondary">{card.subtitle}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card key={i} sx={{ height: '100%' }}>
+            <CardContent>
+              <Avatar
+                sx={{ bgcolor: card.palette.bg, width: 44, height: 44, mb: 2 }}
+                variant="rounded"
+              >
+                <card.Icon style={{ width: 22, height: 22, color: card.palette.fg }} />
+              </Avatar>
+              <Typography variant="caption" color="text.secondary" display="block">
+                {card.title}
+              </Typography>
+              <Stack direction="row" alignItems="baseline" spacing={1} mt={0.5}>
+                <Typography variant="h5">{card.value}</Typography>
+                {card.amount && (
+                  <Typography variant="body2" color="text.secondary">{card.amount}</Typography>
+                )}
+              </Stack>
+              <Typography variant="caption" color="text.secondary">{card.subtitle}</Typography>
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
       {/* Charts */}
       <Grid container spacing={3} mb={4}>

@@ -61,29 +61,33 @@ const ExecutiveSummary = ({ data }) => {
   return (
     <Stack spacing={3}>
       {/* KPI Cards */}
-      <Grid container spacing={2}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(5, 1fr)' },
+          gap: 2,
+        }}
+      >
         {cards.map((c, i) => (
-          <Grid key={i} size={{ xs: 12, sm: 6, lg: 4, xl: 2.4 }}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Avatar
-                  variant="rounded"
-                  sx={{ bgcolor: c.color.bg, width: 40, height: 40, mb: 1.5 }}
-                >
-                  <c.Icon style={{ width: 20, height: 20, color: c.color.fg }} />
-                </Avatar>
-                <Typography variant="caption" color="text.secondary" display="block">
-                  {c.title}
-                </Typography>
-                <Typography variant="h5" mt={0.5}>{c.value}</Typography>
-                {c.subtitle && (
-                  <Typography variant="caption" color="text.secondary">{c.subtitle}</Typography>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card key={i} sx={{ height: '100%' }}>
+            <CardContent>
+              <Avatar
+                variant="rounded"
+                sx={{ bgcolor: c.color.bg, width: 40, height: 40, mb: 1.5 }}
+              >
+                <c.Icon style={{ width: 20, height: 20, color: c.color.fg }} />
+              </Avatar>
+              <Typography variant="caption" color="text.secondary" display="block">
+                {c.title}
+              </Typography>
+              <Typography variant="h5" mt={0.5}>{c.value}</Typography>
+              {c.subtitle && (
+                <Typography variant="caption" color="text.secondary">{c.subtitle}</Typography>
+              )}
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
       {/* Charts Row 1 */}
       <Grid container spacing={3}>
