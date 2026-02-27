@@ -1,4 +1,13 @@
+import {
+  mockDashboard, mockPayerMetrics, mockCategoryMetrics, mockTrends,
+  mockPayers, mockProviders, mockExecutiveSummary, mockDenialAnalysis,
+  mockOverturnRates, mockPatterns, mockOperationalKPIs,
+} from './mockData';
+
+const DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dev-api.penguinai.co/appeals-dev';
+
+const delay = (ms = 300) => new Promise(r => setTimeout(r, ms));
 
 const getHeaders = () => ({
   'Content-Type': 'application/json',
@@ -26,6 +35,10 @@ const checked = async (response, errorMsg) => {
 // Authentication APIs
 export const authAPI = {
   login: async (email, password) => {
+    if (DEMO) {
+      await delay(500);
+      return { access_token: 'demo-token-' + Date.now(), user: { email, name: 'Demo User' } };
+    }
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: getHeaders(),
@@ -36,6 +49,7 @@ export const authAPI = {
   },
 
   getMe: async () => {
+    if (DEMO) { await delay(); return { email: 'demo@penguinai.com', name: 'Demo User' }; }
     const response = await fetch(`${BASE_URL}/auth/me`, { headers: getHeaders() });
     return checked(response, 'Failed to get user');
   }
@@ -44,12 +58,14 @@ export const authAPI = {
 // Denials APIs
 export const denialsAPI = {
   getAll: async (filters = {}) => {
+    if (DEMO) { await delay(); return []; }
     const params = new URLSearchParams(filters);
     const response = await fetch(`${BASE_URL}/denials?${params}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch denials');
   },
 
   getById: async (id) => {
+    if (DEMO) { await delay(); return null; }
     const response = await fetch(`${BASE_URL}/denials/${id}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch denial');
   },
@@ -297,11 +313,13 @@ export const questionnairesAPI = {
 // Reference Data APIs
 export const referenceDataAPI = {
   getPayers: async () => {
+    if (DEMO) { await delay(); return mockPayers; }
     const response = await fetch(`${BASE_URL}/reference-data/payers`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch payers');
   },
 
   getProviders: async () => {
+    if (DEMO) { await delay(); return mockProviders; }
     const response = await fetch(`${BASE_URL}/reference-data/providers`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch providers');
   }
@@ -310,21 +328,25 @@ export const referenceDataAPI = {
 // Metrics APIs
 export const metricsAPI = {
   getDashboard: async () => {
+    if (DEMO) { await delay(); return mockDashboard; }
     const response = await fetch(`${BASE_URL}/metrics/dashboard`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch dashboard metrics');
   },
 
   getByPayer: async () => {
+    if (DEMO) { await delay(); return mockPayerMetrics; }
     const response = await fetch(`${BASE_URL}/metrics/by-payer`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch payer metrics');
   },
 
   getByCategory: async () => {
+    if (DEMO) { await delay(); return mockCategoryMetrics; }
     const response = await fetch(`${BASE_URL}/metrics/by-category`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch category metrics');
   },
 
   getTrends: async (months = 12) => {
+    if (DEMO) { await delay(); return mockTrends; }
     const response = await fetch(`${BASE_URL}/metrics/trends?months=${months}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch trends');
   }
@@ -333,30 +355,35 @@ export const metricsAPI = {
 // Reporting APIs
 export const reportingAPI = {
   getExecutiveSummary: async (params = {}) => {
+    if (DEMO) { await delay(); return mockExecutiveSummary; }
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/executive-summary?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch executive summary');
   },
 
   getDenialAnalysis: async (params = {}) => {
+    if (DEMO) { await delay(); return mockDenialAnalysis; }
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/denial-analysis?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch denial analysis');
   },
 
   getOverturnRates: async (params = {}) => {
+    if (DEMO) { await delay(); return mockOverturnRates(params.group_by || 'payer'); }
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/overturn-rates?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch overturn rates');
   },
 
   getPatterns: async (params = {}) => {
+    if (DEMO) { await delay(); return mockPatterns; }
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/patterns?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch patterns');
   },
 
   getOperationalKPIs: async (params = {}) => {
+    if (DEMO) { await delay(); return mockOperationalKPIs; }
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/operational-kpis?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch operational KPIs');
