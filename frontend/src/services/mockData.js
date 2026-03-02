@@ -75,20 +75,20 @@ export const mockExecutiveSummary = {
 };
 
 export const mockDenialAnalysis = {
-  admin_split: { count: 87, total_denied: 175823.73, overturn_rate: 68 },
-  clinical_split: { count: 104, total_denied: 489210.50, overturn_rate: 38 },
-  other_split: { count: 27, total_denied: 52400.00, overturn_rate: 33 },
+  admin_split: { count: 87, total_denied: 175823.73, recovered: 119560, overturn_rate: 68 },
+  clinical_split: { count: 104, total_denied: 489210.50, recovered: 185900, overturn_rate: 38 },
+  other_split: { count: 27, total_denied: 52400.00, recovered: 17290, overturn_rate: 33 },
   code_breakdown: [
-    { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 34, total_denied: 98200, overturn_rate: 76, classification: 'administrative', preventability: 'high' },
-    { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 28, total_denied: 142500, overturn_rate: 62, classification: 'administrative', preventability: 'high' },
-    { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 22, total_denied: 187300, overturn_rate: 31, classification: 'clinical', preventability: 'low' },
-    { code: 'PR-96', description: 'Non-covered charge(s) - patient liability', count: 17, total_denied: 64800, overturn_rate: 24, classification: 'clinical', preventability: 'medium' },
-    { code: 'CO-4', description: 'Procedure code inconsistent with modifier or billing guidelines', count: 14, total_denied: 38900, overturn_rate: 82, classification: 'administrative', preventability: 'high' },
-    { code: 'CO-29', description: 'Timely filing limit exceeded', count: 12, total_denied: 31200, overturn_rate: 15, classification: 'administrative', preventability: 'high' },
-    { code: 'OA-23', description: 'Impact of prior payer adjudication', count: 10, total_denied: 28700, overturn_rate: 45, classification: 'clinical', preventability: 'medium' },
-    { code: 'CO-11', description: 'Diagnosis inconsistent with procedure', count: 9, total_denied: 42100, overturn_rate: 55, classification: 'clinical', preventability: 'medium' },
-    { code: 'PI-204', description: 'Service not authorized on this date of service', count: 8, total_denied: 19400, overturn_rate: 71, classification: 'administrative', preventability: 'high' },
-    { code: 'CO-236', description: 'Level of care or service not appropriate', count: 7, total_denied: 89600, overturn_rate: 29, classification: 'clinical', preventability: 'low' },
+    { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 34, total_denied: 98200, recovered: 74630, overturn_rate: 76, classification: 'administrative', preventability: 'high' },
+    { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 28, total_denied: 142500, recovered: 88350, overturn_rate: 62, classification: 'administrative', preventability: 'high' },
+    { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 22, total_denied: 187300, recovered: 58060, overturn_rate: 31, classification: 'clinical', preventability: 'low' },
+    { code: 'PR-96', description: 'Non-covered charge(s) - patient liability', count: 17, total_denied: 64800, recovered: 15550, overturn_rate: 24, classification: 'clinical', preventability: 'medium' },
+    { code: 'CO-4', description: 'Procedure code inconsistent with modifier or billing guidelines', count: 14, total_denied: 38900, recovered: 31900, overturn_rate: 82, classification: 'administrative', preventability: 'high' },
+    { code: 'CO-29', description: 'Timely filing limit exceeded', count: 12, total_denied: 31200, recovered: 4680, overturn_rate: 15, classification: 'administrative', preventability: 'high' },
+    { code: 'OA-23', description: 'Impact of prior payer adjudication', count: 10, total_denied: 28700, recovered: 12920, overturn_rate: 45, classification: 'clinical', preventability: 'medium' },
+    { code: 'CO-11', description: 'Diagnosis inconsistent with procedure', count: 9, total_denied: 42100, recovered: 23160, overturn_rate: 55, classification: 'clinical', preventability: 'medium' },
+    { code: 'PI-204', description: 'Service not authorized on this date of service', count: 8, total_denied: 19400, recovered: 13770, overturn_rate: 71, classification: 'administrative', preventability: 'high' },
+    { code: 'CO-236', description: 'Level of care or service not appropriate', count: 7, total_denied: 89600, recovered: 25980, overturn_rate: 29, classification: 'clinical', preventability: 'low' },
   ],
   procedure_matrix: [
     { procedure_code: '99214', total: 18, medical_necessity: 8, prior_authorization: 4, coding_error: 3, documentation: 2, other: 1 },
@@ -138,15 +138,10 @@ export const mockOverturnRates = (groupBy) => {
     { name: 'CO-11', total_appeals: 8, overturned: 4, overturn_rate: 50, extra: 'Clinical', recovered_amount: 42100 },
     { name: 'CO-50', total_appeals: 18, overturned: 6, overturn_rate: 33, extra: 'Clinical', recovered_amount: 187300 },
   ];
-
   const rowMap = { payer: byPayer, practice: byPractice, category: byCategory, code: byCode };
-
   return {
     overall_overturn_rate: 52,
-    trend: months.map((m, i) => ({
-      month: m,
-      overturn_rate: 42 + Math.round(Math.sin(i / 2) * 8 + i * 0.8),
-    })),
+    trend: months.map((m, i) => ({ month: m, overturn_rate: 42 + Math.round(Math.sin(i / 2) * 8 + i * 0.8) })),
     rows: rowMap[groupBy] || byPayer,
   };
 };
@@ -159,12 +154,7 @@ export const mockPatterns = {
     'Administrative denials represent 40% of volume but 68% overturn rate -- prioritize these as quick wins to recover $175K+ currently at risk.',
     'UnitedHealthcare has the highest overturn rate (71%). Appeals against UHC should be prioritized as they have the best ROI.',
   ],
-  preventability_trend: months.map((m, i) => ({
-    month: m,
-    high: 5 + Math.round(Math.sin(i / 2) * 2),
-    medium: 4 + (i % 3),
-    low: 6 + Math.round(Math.cos(i / 3) * 2),
-  })),
+  preventability_trend: months.map((m, i) => ({ month: m, high: 5 + Math.round(Math.sin(i / 2) * 2), medium: 4 + (i % 3), low: 6 + Math.round(Math.cos(i / 3) * 2) })),
   recurring_patterns: [
     { code: 'CO-16', frequency: 34, trend: 'up', common_payer: 'Aetna', common_practice: 'Main Street Medical', suggested_action: 'Implement pre-submission claim validation checklist for required fields' },
     { code: 'CO-197', frequency: 28, trend: 'up', common_payer: 'UnitedHealthcare', common_practice: 'Valley Orthopedics', suggested_action: 'Automate prior auth verification before scheduling procedures' },
@@ -195,14 +185,180 @@ export const mockOperationalKPIs = {
   appeals_per_week: 14,
   avg_review_hours: null,
   fte_capacity_gain: null,
-  processing_trend: months.map((m, i) => ({
-    month: m,
-    avg_days: 6.5 - i * 0.18 + Math.round(Math.sin(i / 2) * 0.8 * 10) / 10,
-  })),
+  processing_trend: months.map((m, i) => ({ month: m, avg_days: 6.5 - i * 0.18 + Math.round(Math.sin(i / 2) * 0.8 * 10) / 10 })),
   throughput_trend: [
     { week: 'W1', count: 11 }, { week: 'W2', count: 14 }, { week: 'W3', count: 9 },
     { week: 'W4', count: 16 }, { week: 'W5', count: 13 }, { week: 'W6', count: 15 },
     { week: 'W7', count: 12 }, { week: 'W8', count: 17 }, { week: 'W9', count: 14 },
     { week: 'W10', count: 18 }, { week: 'W11', count: 15 }, { week: 'W12', count: 16 },
   ],
+};
+
+// ── Practice Scorecard Mock Data ────────────────────────────────
+
+const practiceDB = {
+  'Main Street Medical': {
+    total_denials: 42, total_denied: 198400, total_recovered: 73800, overturn_rate: 42, preventable_rate: 69, avg_resolution_days: 21,
+    admin_split: { count: 29, total_denied: 82100, recovered: 56200, overturn_rate: 68 },
+    clinical_split: { count: 13, total_denied: 116300, recovered: 17600, overturn_rate: 15 },
+    top_denial_codes: [
+      { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 12, total_denied: 34800, recovered: 26400, overturn_rate: 76, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 9, total_denied: 41200, recovered: 25500, overturn_rate: 62, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-29', description: 'Timely filing limit exceeded', count: 8, total_denied: 22100, recovered: 3300, overturn_rate: 15, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 5, total_denied: 42800, recovered: 6400, overturn_rate: 15, classification: 'clinical', preventability: 'low' },
+      { code: 'PR-96', description: 'Non-covered charge(s) - patient liability', count: 4, total_denied: 18200, recovered: 4400, overturn_rate: 24, classification: 'clinical', preventability: 'medium' },
+    ],
+    top_procedures: [
+      { procedure_code: '99214', total: 10, medical_necessity: 4, prior_authorization: 3, coding_error: 2, documentation: 1, other: 0 },
+      { procedure_code: '99213', total: 8, medical_necessity: 2, prior_authorization: 2, coding_error: 3, documentation: 0, other: 1 },
+      { procedure_code: '72148', total: 5, medical_necessity: 3, prior_authorization: 1, coding_error: 0, documentation: 1, other: 0 },
+    ],
+    payer_breakdown: [
+      { name: 'Aetna', total_appeals: 14, overturned: 6, overturn_rate: 43, avg_days_to_decision: 19, recovered_amount: 28100 },
+      { name: 'UnitedHealthcare', total_appeals: 11, overturned: 5, overturn_rate: 45, avg_days_to_decision: 15, recovered_amount: 22400 },
+      { name: 'Cigna', total_appeals: 8, overturned: 3, overturn_rate: 38, avg_days_to_decision: 24, recovered_amount: 12800 },
+      { name: 'Medicare', total_appeals: 5, overturned: 1, overturn_rate: 20, avg_days_to_decision: 30, recovered_amount: 5200 },
+    ],
+    denial_trend: months.map((m, i) => ({ month: m, clinical: 1 + (i % 2), administrative: 2 + Math.round(Math.sin(i / 2)), other: i % 3 === 0 ? 1 : 0 })),
+    actionable_insights: [
+      'CO-16 accounts for 29% of denials at this practice -- implement a pre-submission checklist to verify all required fields before claims go out.',
+      'Timely filing denials (CO-29) cost $22K with only 15% overturn rate. These are almost never recoverable -- focus on preventing them with automated deadline tracking.',
+      '69% of denials here are preventable (administrative). A focused billing staff training session could reduce denial volume by 30-40%.',
+    ],
+  },
+  'Valley Orthopedics': {
+    total_denials: 51, total_denied: 412600, total_recovered: 198700, overturn_rate: 65, preventable_rate: 35, avg_resolution_days: 16,
+    admin_split: { count: 14, total_denied: 58200, recovered: 42100, overturn_rate: 72 },
+    clinical_split: { count: 37, total_denied: 354400, recovered: 156600, overturn_rate: 62 },
+    top_denial_codes: [
+      { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 14, total_denied: 148200, recovered: 68600, overturn_rate: 46, classification: 'clinical', preventability: 'low' },
+      { code: 'CO-236', description: 'Level of care or service not appropriate', count: 10, total_denied: 92400, recovered: 42800, overturn_rate: 46, classification: 'clinical', preventability: 'low' },
+      { code: 'CO-11', description: 'Diagnosis inconsistent with procedure', count: 7, total_denied: 38900, recovered: 27200, overturn_rate: 70, classification: 'clinical', preventability: 'medium' },
+      { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 6, total_denied: 18400, recovered: 15600, overturn_rate: 85, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 5, total_denied: 42100, recovered: 28400, overturn_rate: 67, classification: 'administrative', preventability: 'high' },
+    ],
+    top_procedures: [
+      { procedure_code: '27447', total: 14, medical_necessity: 9, prior_authorization: 3, coding_error: 0, documentation: 2, other: 0 },
+      { procedure_code: '29881', total: 11, medical_necessity: 5, prior_authorization: 4, coding_error: 1, documentation: 1, other: 0 },
+      { procedure_code: '27130', total: 8, medical_necessity: 6, prior_authorization: 1, coding_error: 0, documentation: 1, other: 0 },
+    ],
+    payer_breakdown: [
+      { name: 'Blue Cross Blue Shield', total_appeals: 16, overturned: 11, overturn_rate: 69, avg_days_to_decision: 18, recovered_amount: 72400 },
+      { name: 'UnitedHealthcare', total_appeals: 13, overturned: 9, overturn_rate: 69, avg_days_to_decision: 13, recovered_amount: 58200 },
+      { name: 'Aetna', total_appeals: 10, overturned: 6, overturn_rate: 60, avg_days_to_decision: 17, recovered_amount: 38600 },
+      { name: 'Humana', total_appeals: 7, overturned: 5, overturn_rate: 71, avg_days_to_decision: 11, recovered_amount: 24800 },
+    ],
+    denial_trend: months.map((m, i) => ({ month: m, clinical: 3 + Math.round(Math.sin(i / 2) * 1.5), administrative: 1 + (i % 2), other: i % 4 === 0 ? 1 : 0 })),
+    actionable_insights: [
+      'Strong overturn rate (65%) -- this practice fights clinical denials effectively. Focus appeals resources here for highest dollar recovery.',
+      'CO-50 and CO-236 drive most clinical denials for orthopedic procedures. Strengthen medical necessity documentation with specific functional limitation scores.',
+      'Low preventable rate (35%) means most denials here are legitimate payer disputes, not billing errors. The right strategy is better appeal letters, not process changes.',
+    ],
+  },
+  'Sunrise Family Practice': {
+    total_denials: 36, total_denied: 124800, total_recovered: 142500, overturn_rate: 75, preventable_rate: 61, avg_resolution_days: 14,
+    admin_split: { count: 22, total_denied: 68400, recovered: 98200, overturn_rate: 82 },
+    clinical_split: { count: 14, total_denied: 56400, recovered: 44300, overturn_rate: 64 },
+    top_denial_codes: [
+      { code: 'CO-4', description: 'Procedure code inconsistent with modifier or billing guidelines', count: 10, total_denied: 28600, recovered: 24800, overturn_rate: 87, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 8, total_denied: 22400, recovered: 18700, overturn_rate: 83, classification: 'administrative', preventability: 'high' },
+      { code: 'PR-96', description: 'Non-covered charge(s) - patient liability', count: 6, total_denied: 21800, recovered: 14200, overturn_rate: 65, classification: 'clinical', preventability: 'medium' },
+      { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 5, total_denied: 28200, recovered: 12600, overturn_rate: 45, classification: 'clinical', preventability: 'low' },
+      { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 4, total_denied: 14200, recovered: 11800, overturn_rate: 83, classification: 'administrative', preventability: 'high' },
+    ],
+    top_procedures: [
+      { procedure_code: '99214', total: 12, medical_necessity: 4, prior_authorization: 2, coding_error: 4, documentation: 1, other: 1 },
+      { procedure_code: '99213', total: 9, medical_necessity: 2, prior_authorization: 2, coding_error: 3, documentation: 1, other: 1 },
+      { procedure_code: '99215', total: 5, medical_necessity: 3, prior_authorization: 1, coding_error: 1, documentation: 0, other: 0 },
+    ],
+    payer_breakdown: [
+      { name: 'Cigna', total_appeals: 12, overturned: 10, overturn_rate: 83, avg_days_to_decision: 12, recovered_amount: 52400 },
+      { name: 'Aetna', total_appeals: 9, overturned: 7, overturn_rate: 78, avg_days_to_decision: 14, recovered_amount: 38600 },
+      { name: 'UnitedHealthcare', total_appeals: 8, overturned: 6, overturn_rate: 75, avg_days_to_decision: 13, recovered_amount: 32400 },
+      { name: 'Medicare', total_appeals: 4, overturned: 2, overturn_rate: 50, avg_days_to_decision: 28, recovered_amount: 12800 },
+    ],
+    denial_trend: months.map((m, i) => ({ month: m, clinical: 1 + (i % 2), administrative: 2 + Math.round(Math.cos(i / 3)), other: i % 5 === 0 ? 1 : 0 })),
+    actionable_insights: [
+      'Best overturn rate across all practices (75%). This team writes excellent appeals -- consider sharing their approach as a template for others.',
+      'CO-4 (modifier issues) is the top code but easily fixable with a coding reference guide. Quick win to eliminate 28% of denials.',
+      '61% preventable rate is moderate. A short training on modifier usage and PA requirements would cut admin denials significantly.',
+    ],
+  },
+  'Lakeside Cardiology': {
+    total_denials: 31, total_denied: 287400, total_recovered: 87600, overturn_rate: 53, preventable_rate: 32, avg_resolution_days: 22,
+    admin_split: { count: 8, total_denied: 34200, recovered: 24800, overturn_rate: 73 },
+    clinical_split: { count: 23, total_denied: 253200, recovered: 62800, overturn_rate: 47 },
+    top_denial_codes: [
+      { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 10, total_denied: 124600, recovered: 32400, overturn_rate: 26, classification: 'clinical', preventability: 'low' },
+      { code: 'OA-23', description: 'Impact of prior payer adjudication', count: 7, total_denied: 58200, recovered: 24800, overturn_rate: 43, classification: 'clinical', preventability: 'medium' },
+      { code: 'CO-11', description: 'Diagnosis inconsistent with procedure', count: 5, total_denied: 42100, recovered: 18400, overturn_rate: 44, classification: 'clinical', preventability: 'medium' },
+      { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 4, total_denied: 12800, recovered: 10200, overturn_rate: 80, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-236', description: 'Level of care or service not appropriate', count: 3, total_denied: 38200, recovered: 8400, overturn_rate: 22, classification: 'clinical', preventability: 'low' },
+    ],
+    top_procedures: [
+      { procedure_code: '93306', total: 9, medical_necessity: 6, prior_authorization: 2, coding_error: 0, documentation: 1, other: 0 },
+      { procedure_code: '93458', total: 7, medical_necessity: 5, prior_authorization: 1, coding_error: 0, documentation: 1, other: 0 },
+      { procedure_code: '33533', total: 5, medical_necessity: 4, prior_authorization: 1, coding_error: 0, documentation: 0, other: 0 },
+    ],
+    payer_breakdown: [
+      { name: 'Medicare', total_appeals: 10, overturned: 4, overturn_rate: 40, avg_days_to_decision: 30, recovered_amount: 28400 },
+      { name: 'Blue Cross Blue Shield', total_appeals: 8, overturned: 5, overturn_rate: 63, avg_days_to_decision: 20, recovered_amount: 26800 },
+      { name: 'Aetna', total_appeals: 7, overturned: 3, overturn_rate: 43, avg_days_to_decision: 22, recovered_amount: 18200 },
+      { name: 'UnitedHealthcare', total_appeals: 4, overturned: 3, overturn_rate: 75, avg_days_to_decision: 14, recovered_amount: 12400 },
+    ],
+    denial_trend: months.map((m, i) => ({ month: m, clinical: 2 + Math.round(Math.sin(i / 3)), administrative: i % 3 === 0 ? 1 : 0, other: i % 6 === 0 ? 1 : 0 })),
+    actionable_insights: [
+      'Medicare denials have a 40% overturn rate with 30-day avg decision time. Consider peer-to-peer reviews for cardiology cases to improve success.',
+      'CO-50 denials are the biggest dollar exposure ($124K denied, only $32K recovered). Review payer coverage policies for echocardiography and catheterization.',
+      'Low preventable rate (32%) -- most denials are legitimate clinical disputes. Invest in stronger clinical evidence packages for appeals.',
+    ],
+  },
+  'Metro Surgical Associates': {
+    total_denials: 28, total_denied: 342800, total_recovered: 114200, overturn_rate: 59, preventable_rate: 54, avg_resolution_days: 17,
+    admin_split: { count: 15, total_denied: 98400, recovered: 68200, overturn_rate: 69 },
+    clinical_split: { count: 13, total_denied: 244400, recovered: 46000, overturn_rate: 47 },
+    top_denial_codes: [
+      { code: 'CO-197', description: 'Precertification/authorization/notification absent', count: 8, total_denied: 68400, recovered: 42800, overturn_rate: 63, classification: 'administrative', preventability: 'high' },
+      { code: 'PI-204', description: 'Service not authorized on this date of service', count: 5, total_denied: 32600, recovered: 24200, overturn_rate: 74, classification: 'administrative', preventability: 'high' },
+      { code: 'CO-50', description: 'Non-covered service based on payer guidelines', count: 5, total_denied: 98200, recovered: 18400, overturn_rate: 19, classification: 'clinical', preventability: 'low' },
+      { code: 'CO-236', description: 'Level of care or service not appropriate', count: 4, total_denied: 82400, recovered: 14600, overturn_rate: 18, classification: 'clinical', preventability: 'low' },
+      { code: 'CO-16', description: 'Claim/service lacks information needed for adjudication', count: 3, total_denied: 12400, recovered: 10200, overturn_rate: 82, classification: 'administrative', preventability: 'high' },
+    ],
+    top_procedures: [
+      { procedure_code: '43239', total: 8, medical_necessity: 5, prior_authorization: 2, coding_error: 0, documentation: 1, other: 0 },
+      { procedure_code: '47562', total: 6, medical_necessity: 3, prior_authorization: 2, coding_error: 0, documentation: 1, other: 0 },
+      { procedure_code: '44120', total: 4, medical_necessity: 3, prior_authorization: 1, coding_error: 0, documentation: 0, other: 0 },
+    ],
+    payer_breakdown: [
+      { name: 'UnitedHealthcare', total_appeals: 9, overturned: 6, overturn_rate: 67, avg_days_to_decision: 14, recovered_amount: 38400 },
+      { name: 'Blue Cross Blue Shield', total_appeals: 7, overturned: 4, overturn_rate: 57, avg_days_to_decision: 19, recovered_amount: 28600 },
+      { name: 'Humana', total_appeals: 6, overturned: 4, overturn_rate: 67, avg_days_to_decision: 12, recovered_amount: 26800 },
+      { name: 'Aetna', total_appeals: 4, overturned: 2, overturn_rate: 50, avg_days_to_decision: 20, recovered_amount: 14200 },
+    ],
+    denial_trend: months.map((m, i) => ({ month: m, clinical: 1 + (i % 2), administrative: 1 + Math.round(Math.sin(i / 2)), other: i % 4 === 0 ? 1 : 0 })),
+    actionable_insights: [
+      'CO-197 (missing prior auth) is the top denial code. Implement an automated PA verification step in the surgical scheduling workflow.',
+      'PI-204 denials have a 74% overturn rate -- these are easy wins where the auth existed but wasn\'t linked correctly. Fix the submission process.',
+      '54% preventable rate with strong admin overturn rates (69%). Tightening the PA workflow alone could prevent 46% of denials at this practice.',
+    ],
+  },
+};
+
+export const mockPracticeSummaries = Object.entries(practiceDB).map(([name, d]) => ({
+  name,
+  total_denials: d.total_denials,
+  total_denied: d.total_denied,
+  total_recovered: d.total_recovered,
+  overturn_rate: d.overturn_rate,
+  preventable_rate: d.preventable_rate,
+}));
+
+export const mockPracticeScorecard = (name) => {
+  const data = practiceDB[name];
+  if (!data) return null;
+  return { practice_name: name, ...data };
+};
+
+export const mockPracticeComparison = (names) => {
+  return names.map((n) => mockPracticeScorecard(n)).filter(Boolean);
 };

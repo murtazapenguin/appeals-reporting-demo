@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Tabs, Tab, CircularProgress } from '@mui/material';
+import { Box, Typography, Tabs, Tab, CircularProgress, Chip, Stack } from '@mui/material';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import ReportFilters from './reporting/ReportFilters';
 import ExecutiveSummary from './reporting/ExecutiveSummary';
 import DenialAnalysis from './reporting/DenialAnalysis';
@@ -98,6 +99,34 @@ const Reporting = () => {
       </Box>
 
       <ReportFilters filters={filters} onChange={setFilters} />
+
+      {filters.practices && (
+        <Box
+          sx={{
+            mb: 2,
+            px: 2,
+            py: 1.5,
+            bgcolor: 'primary.main',
+            borderRadius: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography variant="body2" sx={{ color: '#fff', fontWeight: 600 }}>
+              Filtered by practice:
+            </Typography>
+            <Chip
+              label={filters.practices}
+              size="small"
+              sx={{ bgcolor: 'rgba(255,255,255,0.2)', color: '#fff', fontWeight: 600, '& .MuiChip-deleteIcon': { color: 'rgba(255,255,255,0.7)' } }}
+              onDelete={() => setFilters((f) => ({ ...f, practices: '' }))}
+              deleteIcon={<XMarkIcon style={{ width: 16, height: 16 }} />}
+            />
+          </Stack>
+        </Box>
+      )}
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs

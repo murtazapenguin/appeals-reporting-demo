@@ -5,6 +5,7 @@ import {
   DocumentTextIcon,
   DocumentCheckIcon,
   ChartBarIcon,
+  BuildingOffice2Icon,
   PlusCircleIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
@@ -21,9 +22,10 @@ const Layout = ({ children, onLogout }) => {
     { name: 'All Denials', path: '/denials', icon: DocumentTextIcon },
     { name: 'Submitted Appeals', path: '/submitted-appeals', icon: DocumentCheckIcon },
     { name: 'Reporting', path: '/reporting', icon: ChartBarIcon },
+    { name: 'Practice Reports', path: '/practices', icon: BuildingOffice2Icon },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => location.pathname === path || (path !== '/' && location.pathname.startsWith(path + '/'));
 
   return (
     <div className="min-h-screen bg-gray-50">

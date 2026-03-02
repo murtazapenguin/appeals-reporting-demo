@@ -143,3 +143,20 @@ class OperationalKPIsResponse(BaseModel):
     fte_capacity_gain: Optional[float]
     processing_trend: List[dict]
     throughput_trend: List[dict]
+
+
+class PracticeScorecardResponse(BaseModel):
+    practice_name: str
+    total_denials: int
+    total_denied: float
+    total_recovered: float
+    overturn_rate: float
+    preventable_rate: float
+    avg_resolution_days: Optional[float]
+    admin_split: DenialTypeSplit
+    clinical_split: DenialTypeSplit
+    top_denial_codes: List[CodeBreakdown]
+    top_procedures: List[ProcedureCodeRow]
+    payer_breakdown: List[OverturnRow]
+    denial_trend: List[MonthlyVolume]
+    actionable_insights: List[str]

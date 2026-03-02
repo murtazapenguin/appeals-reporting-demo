@@ -2,6 +2,7 @@ import {
   mockDashboard, mockPayerMetrics, mockCategoryMetrics, mockTrends,
   mockPayers, mockProviders, mockExecutiveSummary, mockDenialAnalysis,
   mockOverturnRates, mockPatterns, mockOperationalKPIs,
+  mockPracticeSummaries, mockPracticeScorecard, mockPracticeComparison,
 } from './mockData';
 
 const DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
@@ -387,5 +388,25 @@ export const reportingAPI = {
     const qs = new URLSearchParams(params).toString();
     const response = await fetch(`${BASE_URL}/reporting/operational-kpis?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch operational KPIs');
+  },
+
+  getPracticeSummaries: async () => {
+    if (DEMO) { await delay(); return mockPracticeSummaries; }
+    const response = await fetch(`${BASE_URL}/reference-data/providers`, { headers: getHeaders() });
+    return checked(response, 'Failed to fetch practice summaries');
+  },
+
+  getPracticeScorecard: async (name, params = {}) => {
+    if (DEMO) { await delay(); return mockPracticeScorecard(name); }
+    const qs = new URLSearchParams({ practice: name, ...params }).toString();
+    const response = await fetch(`${BASE_URL}/reporting/practice-scorecard?${qs}`, { headers: getHeaders() });
+    return checked(response, 'Failed to fetch practice scorecard');
+  },
+
+  getPracticeComparison: async (names, params = {}) => {
+    if (DEMO) { await delay(); return mockPracticeComparison(names); }
+    const qs = new URLSearchParams({ practices: names.join(','), ...params }).toString();
+    const response = await fetch(`${BASE_URL}/reporting/practice-comparison?${qs}`, { headers: getHeaders() });
+    return checked(response, 'Failed to fetch practice comparison');
   },
 };

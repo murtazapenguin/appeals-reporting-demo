@@ -10,6 +10,9 @@ import SubmittedAppealsList from './components/SubmittedAppealsList';
 import NewDenialWizard from './components/NewDenialWizard';
 import DenialDetail from './components/DenialDetail';
 import Reporting from './components/Reporting';
+import PracticeSelector from './components/PracticeSelector';
+import PracticeScorecard from './components/PracticeScorecard';
+import PracticeComparison from './components/PracticeComparison';
 import Layout from './components/Layout';
 
 // Healthcare Claim Denial Appeal Management App
@@ -88,6 +91,36 @@ function App() {
             <ProtectedRoute>
               <Layout onLogout={handleLogout}>
                 <Reporting />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/practices"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}>
+                <PracticeSelector />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/practices/compare"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}>
+                <PracticeComparison />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/practices/:name"
+          element={
+            <ProtectedRoute>
+              <Layout onLogout={handleLogout}>
+                <PracticeScorecard />
               </Layout>
             </ProtectedRoute>
           }

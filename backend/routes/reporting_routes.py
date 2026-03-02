@@ -10,6 +10,7 @@ from models.reporting import (
     OverturnRatesResponse,
     PatternIntelligenceResponse,
     OperationalKPIsResponse,
+    PracticeScorecardResponse,
     DenialTypeSplit,
     CodeBreakdown,
     MonthlyVolume,
@@ -676,3 +677,211 @@ async def get_operational_kpis(
         processing_trend=processing_trend,
         throughput_trend=throughput_trend,
     )
+
+
+# ── Practice Scorecard ────────────────────────────────────────
+
+
+def _build_practice_scorecard(practice_name: str, denials: list) -> PracticeScorecardResponse:
+    total = len(denials)
+    total_denied = sum(d.get("denied_amount", 0) for d in denials)
+
+    submitted = [d for d in denials if d.get("status") in ("submitted", "approved", "denied")]
+    approved = [d for d in denials if d.get("status") == "approved"]
+    overturn_rate = (len(approved) / len(submitted) * 100) if submitted else 0
+    total_recovered = sum(d.get("denied_amount", 0) for d in approved)
+
+    preventable = sum(
+        1 for d in denials
+        if _classify_preventability(d.get("denial_category", "")) in ("high", "medium")
+    )
+    preventable_rate = (preventable / total * 100) if total else 0
+
+    resolution_days = []
+    for d in denials:
+        if d.get("status") in ("approved", "denied"):
+            denial_dt = _parse_dt(d.get("denial_date"))
+            updated_dt = _parse_dt(d.get("updated_at"))
+            if denial_dt and updated_dt:
+                delta = (updated_dt - denial_dt).days
+                if delta >= 0:
+                    resolution_days.append(delta)
+    avg_res = (sum(resolution_days) / len(resolution_days)) if resolution_days else None
+
+    buckets: dict[str, list] = {"administrative": [], "clinical": [], "other": []}
+    for d in denials:
+        buckets[_classify_type(d.get("denial_category", ""))].append(d)
+
+    def _split(label, items):
+        td = sum(i.get("denied_amount", 0) for i in items)
+        s = [i for i in items if i.get("status") in ("submitted", "approved", "denied")]
+        w = [i for i in items if i.get("status") == "approved"]
+        r = (len(w) / len(s) * 100) if s else 0
+        return DenialTypeSplit(label=label, count=len(items), total_denied=td, overturn_rate=round(r, 1))
+
+    admin_split = _split("Administrative", buckets["administrative"])
+    clinical_split = _split("Clinical", buckets["clinical"])
+
+    code_groups: dict[str, list] = defaultdict(list)
+    for d in denials:
+        dc = d.get("denial_code") or "Unknown"
+        code_groups[dc].append(d)
+
+    top_codes = []
+    for code, items in sorted(code_groups.items(), key=lambda x: len(x[1]), reverse=True)[:10]:
+        s = [i for i in items if i.get("status") in ("submitted", "approved", "denied")]
+        w = [i for i in items if i.get("status") == "approved"]
+        rate = (len(w) / len(s) * 100) if s else 0
+        cats = Counter(i.get("denial_category", "Other") for i in items)
+        mc = cats.most_common(1)[0][0] if cats else "Other"
+        top_codes.append(CodeBreakdown(
+            code=code,
+            description=DENIAL_CODE_DESCRIPTIONS.get(code, ""),
+            count=len(items),
+            total_denied=sum(i.get("denied_amount", 0) for i in items),
+            overturn_rate=round(rate, 1),
+            classification=_classify_type(mc),
+            preventability=_classify_preventability(mc),
+        ))
+
+    proc_groups: dict[str, dict] = defaultdict(lambda: {
+        "total": 0, "Medical Necessity": 0, "Prior Authorization": 0,
+        "Coding Error": 0, "Documentation": 0, "Other": 0,
+    })
+    for d in denials:
+        pc = d.get("procedure_code") or "Unknown"
+        cat = d.get("denial_category", "Other")
+        proc_groups[pc]["total"] += 1
+        if cat in proc_groups[pc]:
+            proc_groups[pc][cat] += 1
+        else:
+            proc_groups[pc]["Other"] += 1
+
+    top_procs = sorted(
+        [ProcedureCodeRow(
+            procedure_code=pc, total=v["total"],
+            medical_necessity=v["Medical Necessity"],
+            prior_authorization=v["Prior Authorization"],
+            coding_error=v["Coding Error"],
+            documentation=v["Documentation"],
+            other=v["Other"],
+        ) for pc, v in proc_groups.items()],
+        key=lambda x: x.total, reverse=True,
+    )[:5]
+
+    payer_groups: dict[str, list] = defaultdict(list)
+    for d in submitted:
+        pn = d.get("payer_name") or "Unknown"
+        payer_groups[pn].append(d)
+
+    payer_rows = []
+    for pname, items in sorted(payer_groups.items(), key=lambda x: len(x[1]), reverse=True):
+        w = [i for i in items if i.get("status") == "approved"]
+        days_list = []
+        for i in items:
+            sub_dt = _parse_dt(i.get("submitted_at"))
+            upd_dt = _parse_dt(i.get("updated_at"))
+            if sub_dt and upd_dt:
+                dd = (upd_dt - sub_dt).days
+                if dd >= 0:
+                    days_list.append(dd)
+        avg_d = (sum(days_list) / len(days_list)) if days_list else None
+        payer_rows.append(OverturnRow(
+            name=pname,
+            total_appeals=len(items),
+            overturned=len(w),
+            overturn_rate=round(len(w) / len(items) * 100, 1) if items else 0,
+            avg_days_to_decision=round(avg_d, 1) if avg_d is not None else None,
+            recovered_amount=sum(i.get("denied_amount", 0) for i in w),
+        ))
+
+    monthly: dict[str, dict] = defaultdict(lambda: {"administrative": 0, "clinical": 0, "other": 0})
+    for d in denials:
+        dd = _parse_dt(d.get("denial_date")) or _parse_dt(d.get("created_at"))
+        if dd:
+            mk = dd.strftime("%Y-%m")
+            monthly[mk][_classify_type(d.get("denial_category", ""))] += 1
+
+    denial_trend = sorted(
+        [MonthlyVolume(month=m, **v) for m, v in monthly.items()],
+        key=lambda x: x.month,
+    )
+
+    insights = []
+    if top_codes:
+        tc = top_codes[0]
+        insights.append(
+            f"{tc.code} is the top denial code ({tc.count} occurrences, "
+            f"${tc.total_denied:,.0f} denied). "
+            f"Overturn rate: {tc.overturn_rate}%."
+        )
+    if preventable_rate > 50:
+        insights.append(
+            f"{round(preventable_rate)}% of denials are preventable. "
+            "Focus on billing process improvements."
+        )
+    if admin_split.overturn_rate > 60:
+        insights.append(
+            f"Administrative denials have a {admin_split.overturn_rate}% overturn rate — "
+            "prioritize these as quick wins."
+        )
+    if payer_rows:
+        best = max(payer_rows, key=lambda r: r.overturn_rate)
+        if best.overturn_rate > 60:
+            insights.append(
+                f"{best.name} has the highest overturn rate ({best.overturn_rate}%). "
+                "Prioritize appeals against this payer."
+            )
+    if not insights:
+        insights.append("Not enough data to generate specific insights for this practice.")
+
+    return PracticeScorecardResponse(
+        practice_name=practice_name,
+        total_denials=total,
+        total_denied=total_denied,
+        total_recovered=total_recovered,
+        overturn_rate=round(overturn_rate, 1),
+        preventable_rate=round(preventable_rate, 1),
+        avg_resolution_days=round(avg_res, 1) if avg_res is not None else None,
+        admin_split=admin_split,
+        clinical_split=clinical_split,
+        top_denial_codes=top_codes,
+        top_procedures=top_procs,
+        payer_breakdown=payer_rows,
+        denial_trend=denial_trend,
+        actionable_insights=insights,
+    )
+
+
+@router.get("/practice-scorecard", response_model=PracticeScorecardResponse)
+async def get_practice_scorecard(
+    practice: str = Query(..., description="Practice name"),
+    date_from: Optional[str] = Query(None),
+    date_to: Optional[str] = Query(None),
+    user=Depends(get_current_user),
+):
+    denials = await _get_filtered_denials(
+        date_from=date_from, date_to=date_to,
+        payers=None, practices=practice,
+        categories=None, denial_type=None,
+    )
+    return _build_practice_scorecard(practice, denials)
+
+
+@router.get("/practice-comparison", response_model=List[PracticeScorecardResponse])
+async def get_practice_comparison(
+    practices: str = Query(..., description="Comma-separated practice names (2-3)"),
+    date_from: Optional[str] = Query(None),
+    date_to: Optional[str] = Query(None),
+    user=Depends(get_current_user),
+):
+    names = [p.strip() for p in practices.split(",") if p.strip()][:3]
+    results = []
+    for name in names:
+        denials = await _get_filtered_denials(
+            date_from=date_from, date_to=date_to,
+            payers=None, practices=name,
+            categories=None, denial_type=None,
+        )
+        results.append(_build_practice_scorecard(name, denials))
+    return results
