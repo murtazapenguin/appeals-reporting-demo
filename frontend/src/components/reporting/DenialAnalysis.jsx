@@ -27,9 +27,9 @@ const SplitCard = ({ label, count, totalDenied, overturnRate, recovered, Icon, i
             <Typography variant="caption" color="text.secondary">Recovered</Typography>
             <Typography variant="h6" color="success.main">${(recovered || 0).toLocaleString()}</Typography>
           </Box>
-          <Box sx={{ minWidth: 70 }}>
-            <Typography variant="caption" color="text.secondary">Overturn Rate</Typography>
-            <Chip label={`${overturnRate}%`} size="small" color={rateColor} sx={{ mt: 0.5 }} />
+          <Box sx={{ minWidth: 80 }}>
+            <Typography variant="caption" color="text.secondary" display="block" mb={0.75}>Overturn Rate</Typography>
+            <Chip label={`${overturnRate}%`} size="small" color={rateColor} />
           </Box>
         </Stack>
       </CardContent>

@@ -114,8 +114,8 @@ const PracticeSelector = () => {
                     </Typography>
                   </Box>
                   <Box>
-                    <Typography variant="caption" color="text.secondary">Overturn</Typography>
-                    <Chip label={`${p.overturn_rate}%`} size="small" color={rateColor(p.overturn_rate)} sx={{ mt: 0.25 }} />
+                    <Typography variant="caption" color="text.secondary" display="block" mb={0.75}>Overturn</Typography>
+                    <Chip label={`${p.overturn_rate}%`} size="small" color={rateColor(p.overturn_rate)} />
                   </Box>
                   <Box>
                     <Typography variant="caption" color="text.secondary">Preventable</Typography>
