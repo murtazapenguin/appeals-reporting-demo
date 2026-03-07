@@ -93,6 +93,9 @@ gitleaks:
 
 # Seed data
 seed:
+	docker-compose exec backend python seed_comprehensive.py
+
+seed-simple:
 	docker-compose exec backend python seed_data.py
 
 # Health check

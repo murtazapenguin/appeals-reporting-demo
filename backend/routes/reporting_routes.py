@@ -11,6 +11,9 @@ from models.reporting import (
     PatternIntelligenceResponse,
     OperationalKPIsResponse,
     PracticeScorecardResponse,
+    PracticeSummaryItem,
+    ComparisonInsight,
+    ComparisonInsightsResponse,
     DenialTypeSplit,
     CodeBreakdown,
     MonthlyVolume,
@@ -853,6 +856,50 @@ def _build_practice_scorecard(practice_name: str, denials: list) -> PracticeScor
     )
 
 
+def _build_practice_summary(practice_name: str, denials: list) -> PracticeSummaryItem:
+    """Build summary stats for one practice (for the selector list)."""
+    total = len(denials)
+    total_denied = sum(d.get("denied_amount", 0) for d in denials)
+    submitted = [d for d in denials if d.get("status") in ("submitted", "approved", "denied")]
+    approved = [d for d in denials if d.get("status") == "approved"]
+    overturn_rate = round((len(approved) / len(submitted) * 100), 1) if submitted else 0.0
+    total_recovered = sum(d.get("denied_amount", 0) for d in approved)
+    preventable = sum(
+        1 for d in denials
+        if _classify_preventability(d.get("denial_category", "")) in ("high", "medium")
+    )
+    preventable_rate = round((preventable / total * 100), 1) if total else 0.0
+    return PracticeSummaryItem(
+        name=practice_name,
+        total_denials=total,
+        total_denied=total_denied,
+        total_recovered=total_recovered,
+        overturn_rate=overturn_rate,
+        preventable_rate=preventable_rate,
+    )
+
+
+@router.get("/practice-summaries", response_model=List[PracticeSummaryItem])
+async def get_practice_summaries(
+    date_from: Optional[str] = Query(None),
+    date_to: Optional[str] = Query(None),
+    user=Depends(get_current_user),
+):
+    """List all practices with summary stats for the Practice Reports selector."""
+    denials = await _get_filtered_denials(
+        date_from=date_from, date_to=date_to,
+        payers=None, practices=None,
+        categories=None, denial_type=None,
+    )
+    by_practice: dict[str, list] = defaultdict(list)
+    for d in denials:
+        name = d.get("provider_practice_name") or d.get("provider_practice") or "Unknown"
+        by_practice[name].append(d)
+    result = [_build_practice_summary(name, items) for name, items in by_practice.items()]
+    result.sort(key=lambda x: x.total_denials, reverse=True)
+    return result
+
+
 @router.get("/practice-scorecard", response_model=PracticeScorecardResponse)
 async def get_practice_scorecard(
     practice: str = Query(..., description="Practice name"),
@@ -866,6 +913,118 @@ async def get_practice_scorecard(
         categories=None, denial_type=None,
     )
     return _build_practice_scorecard(practice, denials)
+
+
+def _build_comparison_insights(scorecards: list) -> list:
+    """Generate comparison insights (external, internal, action) from a list of practice scorecards."""
+    insights: list = []
+    if len(scorecards) < 2:
+        return insights
+
+    best = max(scorecards, key=lambda s: s.get("overturn_rate") or 0)
+    worst = min(scorecards, key=lambda s: s.get("overturn_rate") or 0)
+    best_name = best.get("practice_name", "")
+    worst_name = worst.get("practice_name", "")
+    best_rate = best.get("overturn_rate") or 0
+    worst_rate = worst.get("overturn_rate") or 0
+
+    if best_rate > worst_rate and best_name != worst_name:
+        insights.append(ComparisonInsight(
+            type="internal",
+            message=f"{best_name} has a higher overturn rate ({best_rate}% vs {worst_rate}%). Compare denial type mix and payer mix below to see why.",
+            practice_name=None,
+        ))
+
+    for sc in scorecards:
+        name = sc.get("practice_name", "")
+        total = sc.get("total_denials") or 0
+        if total == 0:
+            continue
+        admin = (sc.get("admin_split") or {}).get("count", 0)
+        admin_pct = round(admin / total * 100, 0) if total else 0
+        admin_rate = (sc.get("admin_split") or {}).get("overturn_rate", 0)
+        if admin_pct >= 50 and admin_rate >= 60:
+            insights.append(ComparisonInsight(
+                type="internal",
+                message=f"{name} has a high share of administrative denials ({admin_pct}%) with {admin_rate}% overturn — prioritize admin appeals here.",
+                practice_name=name,
+            ))
+            break
+
+    for sc in scorecards:
+        name = sc.get("practice_name", "")
+        prev_rate = sc.get("preventable_rate") or 0
+        if prev_rate >= 50:
+            insights.append(ComparisonInsight(
+                type="action",
+                message=f"{name} has a high preventable rate ({prev_rate}%). Focus on prior authorization and coding accuracy to reduce denials.",
+                practice_name=name,
+            ))
+            break
+
+    for sc in scorecards:
+        top_codes = sc.get("top_denial_codes") or []
+        if not top_codes:
+            continue
+        name = sc.get("practice_name", "")
+        top = top_codes[0]
+        code = top.get("code", "")
+        prev = (top.get("preventability") or "").lower()
+        if code == "CO-197" or (prev == "high" and "prior" in (top.get("description") or "").lower()):
+            insights.append(ComparisonInsight(
+                type="action",
+                message=f"{name}'s top code is {code} (prior auth). Strengthen pre-authorization workflow to reduce preventable denials.",
+                practice_name=name,
+            ))
+            break
+
+    payer_names_by_practice = {}
+    for sc in scorecards:
+        payer_names_by_practice[sc.get("practice_name", "")] = {p.get("name") for p in (sc.get("payer_breakdown") or []) if p.get("name")}
+    all_payers = set()
+    for s in payer_names_by_practice.values():
+        all_payers |= s
+    if len(scorecards) >= 2 and all_payers:
+        only_in_one = [p for p in all_payers if sum(1 for s in payer_names_by_practice.values() if p in s) == 1]
+        if only_in_one:
+            practice_with = {p: [n for n, s in payer_names_by_practice.items() if p in s] for p in only_in_one}
+            for payer, practices_list in practice_with.items():
+                if practices_list:
+                    insights.append(ComparisonInsight(
+                        type="external",
+                        message=f"Payer mix differs: {practices_list[0]} has denials from {payer} that others don't — part of the gap may be external (payer mix).",
+                        practice_name=practices_list[0],
+                    ))
+                    break
+
+    if not insights:
+        insights.append(ComparisonInsight(
+            type="internal",
+            message="Use the denial type mix and payer table above to spot differences. Administrative denials often overturn more; high preventable rates suggest process improvements.",
+            practice_name=None,
+        ))
+    return insights[:6]
+
+
+@router.get("/practice-comparison-insights", response_model=ComparisonInsightsResponse)
+async def get_practice_comparison_insights(
+    practices: str = Query(..., description="Comma-separated practice names (2-3)"),
+    date_from: Optional[str] = Query(None),
+    date_to: Optional[str] = Query(None),
+    user=Depends(get_current_user),
+):
+    names = [p.strip() for p in practices.split(",") if p.strip()][:3]
+    scorecards = []
+    for name in names:
+        denials = await _get_filtered_denials(
+            date_from=date_from, date_to=date_to,
+            payers=None, practices=name,
+            categories=None, denial_type=None,
+        )
+        sc = _build_practice_scorecard(name, denials)
+        scorecards.append(sc.model_dump() if hasattr(sc, "model_dump") else sc)
+    insights = _build_comparison_insights(scorecards)
+    return ComparisonInsightsResponse(insights=insights)
 
 
 @router.get("/practice-comparison", response_model=List[PracticeScorecardResponse])

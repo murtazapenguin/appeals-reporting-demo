@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Literal
 
 
 class DenialTypeSplit(BaseModel):
@@ -143,6 +143,27 @@ class OperationalKPIsResponse(BaseModel):
     fte_capacity_gain: Optional[float]
     processing_trend: List[dict]
     throughput_trend: List[dict]
+
+
+class PracticeSummaryItem(BaseModel):
+    """One row for the practice selector list."""
+    name: str
+    total_denials: int
+    total_denied: float
+    total_recovered: float
+    overturn_rate: float
+    preventable_rate: float
+
+
+class ComparisonInsight(BaseModel):
+    """Single comparison insight (external factor, internal factor, or suggested action)."""
+    type: Literal["external", "internal", "action"]
+    message: str
+    practice_name: Optional[str] = None
+
+
+class ComparisonInsightsResponse(BaseModel):
+    insights: List[ComparisonInsight]
 
 
 class PracticeScorecardResponse(BaseModel):

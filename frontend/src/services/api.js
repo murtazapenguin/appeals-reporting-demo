@@ -392,7 +392,7 @@ export const reportingAPI = {
 
   getPracticeSummaries: async () => {
     if (DEMO) { await delay(); return mockPracticeSummaries; }
-    const response = await fetch(`${BASE_URL}/reference-data/providers`, { headers: getHeaders() });
+    const response = await fetch(`${BASE_URL}/reporting/practice-summaries`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch practice summaries');
   },
 
@@ -408,5 +408,12 @@ export const reportingAPI = {
     const qs = new URLSearchParams({ practices: names.join(','), ...params }).toString();
     const response = await fetch(`${BASE_URL}/reporting/practice-comparison?${qs}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch practice comparison');
+  },
+
+  getPracticeComparisonInsights: async (names, params = {}) => {
+    if (DEMO) { await delay(); return { insights: [] }; }
+    const qs = new URLSearchParams({ practices: names.join(','), ...params }).toString();
+    const response = await fetch(`${BASE_URL}/reporting/practice-comparison-insights?${qs}`, { headers: getHeaders() });
+    return checked(response, 'Failed to fetch comparison insights');
   },
 };

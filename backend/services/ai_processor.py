@@ -23,8 +23,18 @@ from datetime import datetime
 from pydantic import BaseModel
 
 # penguin-ai-sdk imports - ONLY these for AI operations
-from penguin.ocr import AzureOCRProvider, ocr_line_to_bbox_format, strip_page_dimensions
-from penguin.llm import create_client, UserMessage, SystemMessage
+try:
+    from penguin.ocr import AzureOCRProvider, ocr_line_to_bbox_format, strip_page_dimensions
+    from penguin.llm import create_client, UserMessage, SystemMessage
+    PENGUIN_SDK_AVAILABLE = True
+except ImportError:
+    AzureOCRProvider = None
+    ocr_line_to_bbox_format = None
+    strip_page_dimensions = None
+    create_client = None
+    UserMessage = None
+    SystemMessage = None
+    PENGUIN_SDK_AVAILABLE = False
 
 # MongoDB imports
 from utils.db_utils import ocr_cache_collection, document_relevancy_collection, patient_documents_collection
