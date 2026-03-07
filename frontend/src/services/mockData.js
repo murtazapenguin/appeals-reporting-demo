@@ -1,5 +1,79 @@
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+// Fixed demo denials (for VITE_DEMO_MODE=true). id used for routing /denials/:id.
+export const mockDenials = [
+  { id: 'demo-1', claim_number: 'CLM-2025-0001', patient_name: 'Margaret Johnson', patient_id: 'PT-200001', patient_dob: '1958-03-15', provider_name: 'Dr. Sarah Wilson', provider_id: 'PRV-001', provider_practice_name: 'Main Street Medical', payer_name: 'Blue Cross Blue Shield', service_date: '2025-01-15', denial_date: '2025-02-01', denial_code: 'CO-50', denial_category: 'Medical Necessity', denial_reason: 'Medical necessity not established for Total Knee Arthroplasty', claim_amount: 44814, denied_amount: 44814, paid_amount: 0, procedure_code: '27447', procedure_description: 'Total Knee Arthroplasty', diagnosis_codes: 'M17.11', service_description: 'Total Knee Arthroplasty', status: 'denied', win_probability: 62, priority: 'high', appeal_deadline: '2025-03-03', internal_notes: 'Appeal REJECTED by payer — consider second-level appeal.' },
+  { id: 'demo-2', claim_number: 'CLM-2025-0002', patient_name: 'Robert Chen', patient_id: 'PT-200002', patient_dob: '1972-07-22', provider_name: 'Dr. Michael Torres', provider_id: 'PRV-002', provider_practice_name: 'Valley Orthopedics', payer_name: 'UnitedHealthcare', service_date: '2025-01-10', denial_date: '2025-01-28', denial_code: 'CO-197', denial_category: 'Prior Authorization', denial_reason: 'Prior authorization was not obtained', claim_amount: 2230, denied_amount: 2230, paid_amount: 0, procedure_code: '99285', procedure_description: 'ED Visit Level 5', diagnosis_codes: 'I21.3', service_description: 'ED Visit Level 5', status: 'denied', win_probability: 45, priority: 'urgent', appeal_deadline: '2025-02-27', internal_notes: 'Appeal REJECTED.' },
+  { id: 'demo-3', claim_number: 'CLM-2025-0003', patient_name: 'Linda Martinez', patient_id: 'PT-200003', patient_dob: '1965-11-08', provider_name: 'Dr. Emily Parker', provider_id: 'PRV-003', provider_practice_name: 'Sunrise Family Practice', payer_name: 'Aetna', service_date: '2025-01-05', denial_date: '2025-01-20', denial_code: 'CO-50', denial_category: 'Medical Necessity', denial_reason: 'Documentation does not support medical necessity', claim_amount: 48159, denied_amount: 48159, paid_amount: 0, procedure_code: '27130', procedure_description: 'Total Hip Arthroplasty', diagnosis_codes: 'M16.11', service_description: 'Total Hip Arthroplasty', status: 'denied', win_probability: 55, priority: 'high', appeal_deadline: '2025-02-19', internal_notes: 'Rejected appeal.' },
+  { id: 'demo-4', claim_number: 'CLM-2025-0004', patient_name: 'James Anderson', patient_id: 'PT-200004', patient_dob: '1950-05-20', provider_name: 'Dr. Sarah Wilson', provider_id: 'PRV-001', provider_practice_name: 'Main Street Medical', payer_name: 'UnitedHealthcare', service_date: '2024-12-01', denial_date: '2024-12-18', denial_code: 'CO-45', denial_category: 'Coding Error', denial_reason: 'Charges exceed contracted amount', claim_amount: 1867, denied_amount: 1867, paid_amount: 0, procedure_code: '99284', procedure_description: 'ED Visit Level 4', diagnosis_codes: 'R07.9', service_description: 'ED Visit Level 4', status: 'approved', win_probability: 78, priority: 'normal', appeal_deadline: '2025-01-17', internal_notes: 'OVERTURNED — payer approved the appeal.' },
+  { id: 'demo-5', claim_number: 'CLM-2025-0005', patient_name: 'Patricia Brown', patient_id: 'PT-200005', patient_dob: '1980-09-12', provider_name: 'Dr. Emily Parker', provider_id: 'PRV-003', provider_practice_name: 'Lakeside Cardiology', payer_name: 'Aetna', service_date: '2024-11-20', denial_date: '2024-12-05', denial_code: 'CO-167', denial_category: 'Medical Necessity', denial_reason: 'Diagnosis not covered per policy', claim_amount: 1846, denied_amount: 0, paid_amount: 1846, procedure_code: '72148', procedure_description: 'MRI Lumbar Spine', diagnosis_codes: 'M54.5', service_description: 'MRI Lumbar Spine', status: 'approved', win_probability: 88, priority: 'normal', appeal_deadline: '2025-01-04', internal_notes: 'Approved.' },
+  { id: 'demo-6', claim_number: 'CLM-2025-0006', patient_name: 'William Taylor', patient_id: 'PT-200006', patient_dob: '1968-02-28', provider_name: 'Dr. Harvey Dent', provider_id: 'PRV-004', provider_practice_name: 'Metro Surgical Associates', payer_name: 'Cigna', service_date: '2025-02-01', denial_date: '2025-02-10', denial_code: 'CO-16', denial_category: 'Documentation', denial_reason: 'Claim lacks required supporting documentation', claim_amount: 1929, denied_amount: 1929, paid_amount: 0, procedure_code: '29881', procedure_description: 'Knee Arthroscopy', diagnosis_codes: 'S83.211A', service_description: 'Knee Arthroscopy', status: 'submitted', win_probability: 72, priority: 'normal', appeal_deadline: '2025-03-12', internal_notes: 'Awaiting payer decision.' },
+  { id: 'demo-7', claim_number: 'CLM-2025-0007', patient_name: 'Susan White', patient_id: 'PT-200007', patient_dob: '1955-12-03', provider_name: 'Dr. Sarah Wilson', provider_id: 'PRV-001', provider_practice_name: 'Main Street Medical', payer_name: 'Humana', service_date: '2025-01-22', denial_date: '2025-02-05', denial_code: 'CO-50', denial_category: 'Medical Necessity', denial_reason: 'Non-covered service per benefit plan', claim_amount: 34976, denied_amount: 34976, paid_amount: 0, procedure_code: '63047', procedure_description: 'Lumbar Laminectomy', diagnosis_codes: 'M48.06', service_description: 'Lumbar Laminectomy', status: 'denied', win_probability: 50, priority: 'high', appeal_deadline: '2025-03-07', internal_notes: 'Rejected.' },
+  { id: 'demo-8', claim_number: 'CLM-2025-0008', patient_name: 'David Lee', patient_id: 'PT-200008', patient_dob: '1978-04-14', provider_name: 'Dr. Thomas Elliot', provider_id: 'PRV-006', provider_practice_name: 'Valley Orthopedics', payer_name: 'Blue Cross Blue Shield', service_date: '2024-10-15', denial_date: '2024-11-01', denial_code: 'CO-197', denial_category: 'Prior Authorization', denial_reason: 'Precertification absent', claim_amount: 52211, denied_amount: 0, paid_amount: 52211, procedure_code: '22551', procedure_description: 'ACDF', diagnosis_codes: 'M50.12', service_description: 'ACDF', status: 'approved', win_probability: 90, priority: 'high', appeal_deadline: '2024-12-01', internal_notes: 'Overturned.' },
+  { id: 'demo-9', claim_number: 'CLM-2025-0009', patient_name: 'Jennifer Garcia', patient_id: 'PT-200009', patient_dob: '1990-08-30', provider_name: 'Dr. Leslie Thompkins', provider_id: 'PRV-005', provider_practice_name: 'Sunrise Family Practice', payer_name: 'Cigna', service_date: '2025-02-05', denial_date: '2025-02-14', denial_code: 'CO-96', denial_category: 'Medical Necessity', denial_reason: 'Non-covered charge(s)', claim_amount: 8341, denied_amount: 8341, paid_amount: 0, procedure_code: '43239', procedure_description: 'Upper GI Endoscopy', diagnosis_codes: 'K21.0', service_description: 'Upper GI Endoscopy', status: 'appeal_ready', win_probability: 58, priority: 'normal', appeal_deadline: '2025-03-16', internal_notes: 'Letter drafted — ready for submission.' },
+  { id: 'demo-10', claim_number: 'CLM-2025-0010', patient_name: 'Michael Williams', patient_id: 'PT-200010', patient_dob: '1962-01-25', provider_name: 'Dr. Michael Torres', provider_id: 'PRV-002', provider_practice_name: 'Lakeside Cardiology', payer_name: 'UnitedHealthcare', service_date: '2025-01-28', denial_date: '2025-02-08', denial_code: 'CO-45', denial_category: 'Coding Error', denial_reason: 'Procedure code inconsistent with modifier', claim_amount: 3157, denied_amount: 3157, paid_amount: 0, procedure_code: '99291', procedure_description: 'Critical Care First Hour', diagnosis_codes: 'R65.20', service_description: 'Critical Care', status: 'in_review', win_probability: 75, priority: 'urgent', appeal_deadline: '2025-03-10', internal_notes: 'Under review — gathering supporting documentation.' },
+  { id: 'demo-11', claim_number: 'CLM-2025-0011', patient_name: 'Elizabeth Jones', patient_id: 'PT-200011', patient_dob: '1975-06-12', provider_name: 'Dr. Emily Parker', provider_id: 'PRV-003', provider_practice_name: 'Metro Surgical Associates', payer_name: 'Aetna', service_date: '2024-12-20', denial_date: '2025-01-05', denial_code: 'CO-11', denial_category: 'Coding Error', denial_reason: 'Diagnosis inconsistent with procedure', claim_amount: 18500, denied_amount: 0, paid_amount: 18500, procedure_code: '27447', procedure_description: 'Total Knee Arthroplasty', diagnosis_codes: 'M17.11', service_description: 'Total Knee Arthroplasty', status: 'approved', win_probability: 82, priority: 'normal', appeal_deadline: '2025-02-04', internal_notes: 'Approved.' },
+  { id: 'demo-12', claim_number: 'CLM-2025-0012', patient_name: 'Thomas Davis', patient_id: 'PT-200012', patient_dob: '1948-09-08', provider_name: 'Dr. Sarah Wilson', provider_id: 'PRV-001', provider_practice_name: 'Main Street Medical', payer_name: 'Medicare', service_date: '2025-02-10', denial_date: '2025-02-18', denial_code: 'CO-29', denial_category: 'Prior Authorization', denial_reason: 'Time limit for filing exceeded', claim_amount: 4200, denied_amount: 4200, paid_amount: 0, procedure_code: '70553', procedure_description: 'MRI Brain', diagnosis_codes: 'G43.909', service_description: 'MRI Brain', status: 'pending', win_probability: null, priority: 'low', appeal_deadline: '2025-03-20', internal_notes: 'New denial — awaiting initial review.' },
+];
+
+// Mock documents for demo (by patient_id). DenialDetail uses getByPatientId(patient_id).
+export const mockDocumentsByPatient = {};
+mockDenials.forEach((d) => {
+  const pid = d.patient_id;
+  if (!mockDocumentsByPatient[pid]) mockDocumentsByPatient[pid] = [];
+  mockDocumentsByPatient[pid].push({
+    _id: `doc-${d.id}-1`,
+    denial_id: d.id,
+    patient_id: pid,
+    document_name: 'progress_notes.pdf',
+    document_type: 'progress_notes',
+    document_date: d.service_date,
+    total_pages: 3,
+    uploaded_at: d.service_date,
+  });
+  mockDocumentsByPatient[pid].push({
+    _id: `doc-${d.id}-2`,
+    denial_id: d.id,
+    patient_id: pid,
+    document_name: 'eob.pdf',
+    document_type: 'eob',
+    document_date: d.denial_date,
+    total_pages: 2,
+    uploaded_at: d.denial_date,
+  });
+});
+
+// Mock criteria evaluation result for any denial in demo.
+export const mockCriteriaResult = {
+  denial_id: 'demo-1',
+  total_criteria: 5,
+  criteria_met: 3,
+  win_probability: 62,
+  criteria: [
+    { id: 'TKA-1', question: 'Has the patient completed at least 6 months of conservative treatment?', met: true, evidence: [{ document_id: 'doc-demo-1-1', document_name: 'progress_notes.pdf', page: 1, text: 'Patient completed 8 months PT and NSAIDs without adequate relief.', bbox: [0.1, 0.2, 0.9, 0.25] }] },
+    { id: 'TKA-2', question: 'Does imaging show bone-on-bone or Grade IV cartilage loss?', met: true, evidence: [{ document_id: 'doc-demo-1-1', document_name: 'progress_notes.pdf', page: 2, text: 'X-ray shows Kellgren-Lawrence Grade 4 changes.', bbox: [0.1, 0.3, 0.9, 0.35] }] },
+    { id: 'TKA-3', question: 'Is there documented significant functional limitation?', met: true, evidence: [{ document_id: 'doc-demo-1-1', document_name: 'progress_notes.pdf', page: 1, text: 'Unable to walk more than 2 blocks; difficulty with stairs.', bbox: [0.1, 0.4, 0.9, 0.45] }] },
+    { id: 'TKA-4', question: 'Has the condition failed to improve despite conservative measures?', met: false, missing_documents: 'No explicit failure statement in submitted records.' },
+    { id: 'TKA-5', question: 'Is BMI documented as < 40 or with bariatric clearance?', met: false, missing_documents: 'BMI not found in submitted documents.' },
+  ],
+  evaluated_at: new Date().toISOString(),
+};
+
+// Mock appeal letter for demo.
+export const mockAppealLetter = {
+  denial_id: 'demo-1',
+  provider_letterhead: { name: 'Main Street Medical\nDr. Sarah Wilson', address: '123 Medical Plaza, Suite 400', phone: '(512) 555-0100' },
+  sections: [
+    { title: 'RE: Appeal of Claim Denial', content: 'Dear Blue Cross Blue Shield Appeals Department,\n\nWe are writing to formally appeal the denial of claim CLM-2025-0001 for patient Margaret Johnson. The claim for Total Knee Arthroplasty was denied under code CO-50. We respectfully disagree and submit the following evidence in support of medical necessity.' },
+    { title: 'Clinical Summary', content: 'Margaret Johnson presented with significant and progressive symptoms that warranted Total Knee Arthroplasty. The patient had undergone extensive conservative treatment including physical therapy and pharmacological management without adequate relief. Clinical examination and diagnostic imaging confirmed the need for surgical intervention.' },
+    { title: 'Supporting Evidence', content: 'The enclosed medical records demonstrate documented failure of conservative treatment, diagnostic imaging confirming the clinical diagnosis, functional limitations affecting activities of daily living, and specialist recommendation for the procedure.' },
+    { title: 'Conclusion', content: 'Based on the comprehensive clinical evidence, we believe Total Knee Arthroplasty was medically necessary and appropriate. We respectfully request that Blue Cross Blue Shield reverse the denial and provide coverage for this claim.' },
+  ],
+  enclosed_documents: ['Medical Records', 'Progress Notes', 'X-Ray Report'],
+  signature: { name: 'Dr. Sarah Wilson', title: 'Attending Physician, Main Street Medical' },
+  generated_at: new Date().toISOString(),
+};
+
 export const mockDashboard = {
   total_open_denials: 47,
   total_at_risk: 312450,

@@ -3,6 +3,7 @@ import {
   mockPayers, mockProviders, mockExecutiveSummary, mockDenialAnalysis,
   mockOverturnRates, mockPatterns, mockOperationalKPIs,
   mockPracticeSummaries, mockPracticeScorecard, mockPracticeComparison,
+  mockDenials, mockDocumentsByPatient, mockCriteriaResult, mockAppealLetter,
 } from './mockData';
 
 const DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
@@ -56,22 +57,42 @@ export const authAPI = {
   }
 };
 
+// Helper: filter mock denials by status, payer, category (DEMO)
+function filterMockDenials(list, filters) {
+  let out = [...list];
+  if (filters.status) {
+    const statuses = filters.status.split(',').map(s => s.trim()).filter(Boolean);
+    if (statuses.length) out = out.filter(d => statuses.includes(d.status));
+  }
+  if (filters.payer) out = out.filter(d => d.payer_name === filters.payer);
+  if (filters.category) out = out.filter(d => d.denial_category === filters.category);
+  return out;
+}
+
 // Denials APIs
 export const denialsAPI = {
   getAll: async (filters = {}) => {
-    if (DEMO) { await delay(); return []; }
+    if (DEMO) {
+      await delay();
+      return filterMockDenials(mockDenials, filters);
+    }
     const params = new URLSearchParams(filters);
     const response = await fetch(`${BASE_URL}/denials?${params}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch denials');
   },
 
   getById: async (id) => {
-    if (DEMO) { await delay(); return null; }
+    if (DEMO) {
+      await delay();
+      const found = mockDenials.find(d => d.id === id);
+      return found ?? null;
+    }
     const response = await fetch(`${BASE_URL}/denials/${id}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch denial');
   },
 
   create: async (denialData) => {
+    if (DEMO) { await delay(); return { id: 'demo-1', ...denialData }; }
     const response = await fetch(`${BASE_URL}/denials`, {
       method: 'POST',
       headers: getHeaders(),
@@ -81,6 +102,7 @@ export const denialsAPI = {
   },
 
   update: async (id, denialData) => {
+    if (DEMO) { await delay(); return { id, ...denialData }; }
     const response = await fetch(`${BASE_URL}/denials/${id}`, {
       method: 'PUT',
       headers: getHeaders(),
@@ -90,6 +112,7 @@ export const denialsAPI = {
   },
 
   uploadCSV: async (file) => {
+    if (DEMO) { await delay(); return { imported_count: 0, failed_count: 0, errors: [], message: 'Demo mode – upload not saved.' }; }
     const formData = new FormData();
     formData.append('file', file);
     const response = await fetch(`${BASE_URL}/denials/upload-csv`, {
@@ -113,11 +136,13 @@ export const denialsAPI = {
 // Medical Policies APIs
 export const medicalPoliciesAPI = {
   getAll: async () => {
+    if (DEMO) { await delay(); return []; }
     const response = await fetch(`${BASE_URL}/medical-policies`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch policies');
   },
 
   lookup: async (payerId, cptCode) => {
+    if (DEMO) { await delay(); return null; }
     const response = await fetch(`${BASE_URL}/medical-policies/lookup?payer_id=${payerId}&cpt_code=${cptCode}`, { headers: getHeaders() });
     return checked(response, 'Failed to lookup policy');
   }
@@ -126,31 +151,48 @@ export const medicalPoliciesAPI = {
 // Documents APIs
 export const documentsAPI = {
   getByDenialId: async (denialId) => {
+    if (DEMO) {
+      await delay();
+      const denial = mockDenials.find(d => d.id === denialId);
+      const patientId = denial?.patient_id;
+      return patientId ? (mockDocumentsByPatient[patientId] || []) : [];
+    }
     const response = await fetch(`${BASE_URL}/documents/denial/${denialId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch documents');
   },
 
   getByPatientId: async (patientId) => {
+    if (DEMO) {
+      await delay();
+      return mockDocumentsByPatient[patientId] || [];
+    }
     const response = await fetch(`${BASE_URL}/documents/patient/${patientId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch documents');
   },
 
   getByDateRange: async (denialId, startDate, endDate) => {
+    if (DEMO) { await delay(); return []; }
     const response = await fetch(`${BASE_URL}/documents/denial/${denialId}/date-range?start_date=${startDate}&end_date=${endDate}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch documents');
   },
 
   getPageImages: async (documentId) => {
+    if (DEMO) { await delay(); return []; }
     const response = await fetch(`${BASE_URL}/documents/${documentId}/pages`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch page images');
   },
 
   getPageCount: async (documentId) => {
+    if (DEMO) { await delay(); return 0; }
     const response = await fetch(`${BASE_URL}/documents/${documentId}/page-count`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch page count');
   },
 
   upload: async (file, denialId, patientId, documentType, documentDate) => {
+    if (DEMO) {
+      await delay();
+      return { _id: 'demo-doc-' + Date.now(), denial_id: denialId, patient_id: patientId, document_type: documentType, document_date: documentDate, document_name: file?.name || 'uploaded.pdf', total_pages: 1 };
+    }
     const formData = new FormData();
     formData.append('file', file);
     formData.append('denial_id', denialId);
@@ -190,6 +232,10 @@ async function pollUntilReady(fetchFn, intervalMs = 5000, timeoutMs = 300000) {
 // Criteria Evaluation APIs
 export const criteriaAPI = {
   evaluate: async (denialId) => {
+    if (DEMO) {
+      await delay(600);
+      return { ...mockCriteriaResult, denial_id: denialId };
+    }
     const response = await fetch(`${BASE_URL}/criteria-evaluation/evaluate/${denialId}`, {
       method: 'POST',
       headers: getHeaders()
@@ -212,11 +258,16 @@ export const criteriaAPI = {
   },
 
   getResults: async (denialId) => {
+    if (DEMO) {
+      await delay();
+      return { ...mockCriteriaResult, denial_id: denialId };
+    }
     const response = await fetch(`${BASE_URL}/criteria-evaluation/${denialId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch criteria results');
   },
 
   getStatus: async (denialId) => {
+    if (DEMO) { await delay(); return { status: 'completed' }; }
     const response = await fetch(`${BASE_URL}/criteria-evaluation/status/${denialId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch evaluation status');
   }
@@ -225,6 +276,10 @@ export const criteriaAPI = {
 // Appeals APIs
 export const appealsAPI = {
   generateLetter: async (denialId) => {
+    if (DEMO) {
+      await delay(800);
+      return { ...mockAppealLetter, denial_id: denialId };
+    }
     const response = await fetch(`${BASE_URL}/appeals/generate/${denialId}`, {
       method: 'POST',
       headers: getHeaders()
@@ -247,16 +302,22 @@ export const appealsAPI = {
   },
 
   getLetter: async (denialId) => {
+    if (DEMO) {
+      await delay();
+      return { ...mockAppealLetter, denial_id: denialId };
+    }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch appeal letter');
   },
 
   getStatus: async (denialId) => {
+    if (DEMO) { await delay(); return { status: 'completed' }; }
     const response = await fetch(`${BASE_URL}/appeals/status/${denialId}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch appeal status');
   },
 
   downloadPDF: async (denialId) => {
+    if (DEMO) { await delay(); return new Blob(['Demo mode – no PDF'], { type: 'application/pdf' }); }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}/pdf`, { headers: getHeaders() });
     if (response.status === 401) { localStorage.removeItem('authToken'); window.location.href = '/login'; throw new Error('Session expired'); }
     if (!response.ok) throw new Error('Failed to download PDF');
@@ -264,6 +325,7 @@ export const appealsAPI = {
   },
 
   submit: async (denialId) => {
+    if (DEMO) { await delay(); return { success: true, message: 'Demo mode – appeal not actually submitted.' }; }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}/submit`, {
       method: 'POST',
       headers: getHeaders()
@@ -272,6 +334,7 @@ export const appealsAPI = {
   },
 
   generatePackage: async (denialId) => {
+    if (DEMO) { await delay(); return { success: true, package_id: 'demo-pkg' }; }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}/generate-package`, {
       method: 'POST',
       headers: getHeaders()
@@ -280,11 +343,13 @@ export const appealsAPI = {
   },
 
   getPackage: async (denialId) => {
+    if (DEMO) { await delay(); return { package_id: 'demo-pkg', documents: [] }; }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}/package`, { headers: getHeaders() });
     return checked(response, 'Failed to get package');
   },
 
   downloadPackage: async (denialId) => {
+    if (DEMO) { await delay(); return new Blob(['Demo mode – no package'], { type: 'application/zip' }); }
     const response = await fetch(`${BASE_URL}/appeals/${denialId}/package/download`, { headers: getHeaders() });
     if (response.status === 401) { localStorage.removeItem('authToken'); window.location.href = '/login'; throw new Error('Session expired'); }
     if (!response.ok) throw new Error('Failed to download package');
@@ -295,17 +360,20 @@ export const appealsAPI = {
 // Questionnaires APIs
 export const questionnairesAPI = {
   getAll: async (cptCode = null) => {
+    if (DEMO) { await delay(); return []; }
     const params = cptCode ? `?cpt_code=${cptCode}` : '';
     const response = await fetch(`${BASE_URL}/questionnaires${params}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch questionnaires');
   },
 
   lookup: async (cptCode) => {
+    if (DEMO) { await delay(); return null; }
     const response = await fetch(`${BASE_URL}/questionnaires/lookup?cpt_code=${cptCode}`, { headers: getHeaders() });
     return checked(response, 'Failed to lookup questionnaire');
   },
 
   getById: async (id) => {
+    if (DEMO) { await delay(); return null; }
     const response = await fetch(`${BASE_URL}/questionnaires/${id}`, { headers: getHeaders() });
     return checked(response, 'Failed to fetch questionnaire');
   }

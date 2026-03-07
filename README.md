@@ -97,6 +97,14 @@ npm install
 npm run dev
 ```
 
+### Demo mode (no backend/DB)
+
+To run the frontend with **fixed mock data** and no backend (e.g. for Vercel or a quick demo):
+
+1. In `frontend`, set `VITE_DEMO_MODE=true` (e.g. in `.env` or in Vercel → Project → Settings → Environment Variables).
+2. Build and run: `npm run build && npm run preview` (or deploy to Vercel).
+3. Log in with any credentials; denials list, denial detail, documents, criteria, and appeal letter use mock data. Writes (create, update, upload, submit) are no-ops and are not persisted.
+
 ## Environment Variables
 
 Create a `.env` file in the root directory:
@@ -204,7 +212,15 @@ make logs         # View all logs
 make logs-backend # View backend logs
 make health       # Check service health
 make gitleaks     # Run security scan
-make seed         # Seed sample data
+make seed         # Seed sample data (Docker)
+```
+
+**One-time seed for production / deployed DB**  
+To populate the database your deployed app uses (e.g. after deploying to Vercel), run the seed once from your machine with that database URL. See [backend/scripts/SEED_ONE_TIME.md](backend/scripts/SEED_ONE_TIME.md) for steps. Example:
+
+```bash
+cd backend
+MONGODB_URL='mongodb+srv://...' DATABASE_NAME='claim_appeals' python seed_comprehensive.py
 ```
 
 ## AI Processing Pipeline
