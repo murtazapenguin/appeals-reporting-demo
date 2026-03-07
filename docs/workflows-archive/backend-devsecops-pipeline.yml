@@ -155,4 +155,3 @@ jobs:
           # Remove dangling images to free up space
           docker image prune -f || true
           echo "Docker cleanup completed"
-
